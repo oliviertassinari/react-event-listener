@@ -1,0 +1,25 @@
+{
+  "name": "react-event-listener",
+  "version": "0.0.1",
+  "description": "A React mixin that enable components to bind events",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oliviertassinari/react-event-listener.git"
+  },
+  "homepage": "https://github.com/oliviertassinari/react-event-listener",
+  "keywords": [
+    "react",
+    "event",
+    "listener",
+    "binding"
+  ],
+  "author": "olivier.tassinari@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oliviertassinari/react-event-listener/issues"
+  }
+}
