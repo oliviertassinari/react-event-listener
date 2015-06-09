@@ -7,13 +7,13 @@
 
 Install via [npm](http://npmjs.org/react-event-listener)
 
-```shell
-   npm install react-event-listener --save-dev
+```sh
+npm install react-event-listener --save-dev
 ```
 
 ## Usage
 
-```Javascript
+```js
 var React = require('react');
 var EventListener = require('react-event-listener');
 
