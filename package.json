@@ -1,6 +1,6 @@
 {
   "name": "react-event-listener",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A React mixin that enable components to bind events",
   "main": "index.js",
   "scripts": {

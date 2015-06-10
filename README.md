@@ -1,4 +1,4 @@
-# React-Event-Listener
+# React-Event-Listener [![npm version](https://badge.fury.io/js/react-event-listener.svg)](http://badge.fury.io/js/react-event-listener)
 
 > A React mixin that enable components to bind events
 
@@ -28,10 +28,10 @@ React.createClass({
     },
   },
   onResize: function() {
-    // Body
+    // the variable this refers to the window object
   },
   onMouseMove: function() {
-    // Body
+    // the variable this refers to the document object
   },
 });
 

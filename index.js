@@ -33,14 +33,14 @@ module.exports = {
   componentDidMount: function componentDidMount() {
     var self = this;
 
-    listenersForEach(this.listeners, function(element, eventName, callbackName) {
+    listenersForEach(self.listeners, function(element, eventName, callbackName) {
       on(element, eventName, self[callbackName]);
     });
   },
   componentWillUnmount: function componentWillUnmount() {
     var self = this;
 
-    listenersForEach(this.listeners, function(element, eventName, callbackName) {
+    listenersForEach(self.listeners, function(element, eventName, callbackName) {
       off(element, eventName, self[callbackName]);
     });
   },
