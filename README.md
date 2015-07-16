@@ -5,8 +5,6 @@
 
 ## Getting Started
 
-Install via [npm](http://npmjs.org/react-event-listener)
-
 ```sh
 npm install react-event-listener --save-dev
 ```
