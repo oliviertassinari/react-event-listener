@@ -6,7 +6,7 @@
 ## Getting Started
 
 ```sh
-npm install react-event-listener --save-dev
+npm install react-event-listener
 ```
 
 ## Usage
