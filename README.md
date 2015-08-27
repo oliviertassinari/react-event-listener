@@ -26,10 +26,8 @@ React.createClass({
     },
   },
   onResize: function() {
-    // the variable this refers to the window object
   },
   onMouseMove: function() {
-    // the variable this refers to the document object
   },
 });
 
