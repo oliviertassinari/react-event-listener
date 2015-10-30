@@ -33,6 +33,12 @@ React.createClass({
 
 ```
 
+### Note on Testing
+
+In [this](https://github.com/facebook/react/issues/5043) issue from React, `TestUtils.Simulate.` methods won't bubble up to `window` or `document`. As a result, you must use [`document.dispatchEvent`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/dispatchEvent) or simulate event using [native DOM api](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/click).
+
+See our [test cases](https://github.com/oliviertassinari/react-event-listener/blob/master/src/__tests__/index.spec.js) for more information.
+
 
 ## Contributing
 
