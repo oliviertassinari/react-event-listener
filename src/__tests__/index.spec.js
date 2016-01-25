@@ -48,29 +48,21 @@ describe('EventListener', () => {
   ].forEach(({contextName, name, invokeFn, expectFn}) => {
     context(contextName, () => {
       it(name, (done) => {
-        const TextComponent = React.createClass({
-          propTypes: {
+        class TextComponent extends React.Component {
+          static propTypes = {
             onClick: React.PropTypes.func,
-          },
+          };
 
-          mixins: [EventListener],
-
-          listeners: {
-            document: {
-              click: 'handleClick',
-            },
-          },
-
-          handleClick() {
+          handleClick = () => {
             this.props.onClick();
-          },
+          };
 
           render() {
             return (
-              <div />
+              <EventListener elementName="document" onClick={this.handleClick} />
             );
-          },
-        });
+          }
+        }
 
         const spy = createSpy();
 

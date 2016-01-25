@@ -1,3 +1,5 @@
+import React from 'react';
+
 function on(element, type, callback) {
   if (element.addEventListener) {
     element.addEventListener(type, callback);
@@ -16,26 +18,46 @@ function off(element, type, callback) {
   }
 }
 
-function listenersForEach(listeners, callback) {
-  for (const elementName in listeners) {
-    const element = window[elementName];
-    const eventNames = listeners[elementName];
+function listenersForEach(props, callback) {
+  const {
+    elementName,
+    ...other,
+  } = props;
 
-    for (const eventName in eventNames) {
-      callback(element, eventName, eventNames[eventName]);
-    }
+  const element = window[elementName];
+
+  for (const eventIdentifier in other) {
+    const eventName = eventIdentifier.substring(2).toLowerCase();
+
+    callback(element, eventName, other[eventIdentifier]);
   }
 }
 
-export default {
+export default class EventListener extends React.Component {
+  static propTypes = {
+    /**
+     * Name of the element that we will be listening to.
+     */
+    elementName: React.PropTypes.string,
+  };
+
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
-    listenersForEach(this.listeners, (element, eventName, callbackName) => {
-      on(element, eventName, this[callbackName]);
+    listenersForEach(this.props, (element, eventName, callback) => {
+      on(element, eventName, callback);
     });
-  },
+  }
+
   componentWillUnmount() {
-    listenersForEach(this.listeners, (element, eventName, callbackName) => {
-      off(element, eventName, this[callbackName]);
+    listenersForEach(this.props, (element, eventName, callback) => {
+      off(element, eventName, callback);
     });
-  },
-};
+  }
+
+  render() {
+    return null;
+  }
+}

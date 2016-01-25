@@ -1,6 +1,6 @@
 # React event listener
 
-> A React mixin that enable components to bind events.
+> A React component that allow to bind events on the global scope.
 
 [![npm version](https://img.shields.io/npm/v/react-event-listener.svg?style=flat-square)](https://www.npmjs.com/package/react-event-listener)
 [![npm downloads](https://img.shields.io/npm/dm/react-event-listener.svg?style=flat-square)](https://www.npmjs.com/package/react-event-listener)
@@ -18,24 +18,27 @@ npm install react-event-listener
 ## Usage
 
 ```js
-var React = require('react');
-var EventListener = require('react-event-listener');
+import React from 'react';
+import EventListener from 'react-event-listener';
 
-React.createClass({
-  mixins: [EventListener],
-  listeners: {
-    window: {
-      resize: 'onResize',
-    },
-    document: {
-      mousemove: 'onMouseMove',
-    },
-  },
-  onResize: function() {
-  },
-  onMouseMove: function() {
-  },
-});
+class MyComponent extends React.Component {
+  handleResize = () => {
+    console.log('resize');
+  };
+
+  handleMouseMove = () => {
+    console.log('mousemove');
+  };
+
+  render() {
+    return (
+      <div>
+        <EventListener elementName="document" onMouseMove={this.handleMouseMove} />
+        <EventListener elementName="window" onResize={this.handleResize} />
+      </div>
+    );
+  }
+}
 ```
 
 ### Note on Testing

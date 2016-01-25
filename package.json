@@ -1,7 +1,7 @@
 {
   "name": "react-event-listener",
-  "version": "0.0.2",
-  "description": "A React mixin that enable components to bind events",
+  "version": "0.1.0",
+  "description": "A React component that allow to bind events on the global scope",
   "main": "lib/index.js",
   "scripts": {
     "clean": "rimraf lib",
@@ -39,6 +39,7 @@
     "babel-eslint": "^4.1.3",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-1": "^6.3.13",
     "codeclimate-test-reporter": "^0.3.0",
     "eslint": "^1.7.3",
     "eslint-plugin-react": "^3.6.3",
