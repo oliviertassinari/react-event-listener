@@ -1,6 +1,6 @@
 {
   "name": "react-event-listener",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A React component that allow to bind events on the global scope",
   "main": "lib/index.js",
   "scripts": {
@@ -12,7 +12,8 @@
     "pretest": "npm run lint",
     "test:cov": "babel-node ./node_modules/.bin/isparta cover --report lcov _mocha -- $npm_package_config_mocha",
     "test:watch": "npm test -- --watch",
-    "test": "mocha $npm_package_config_mocha"
+    "test": "mocha $npm_package_config_mocha",
+    "prepublish": "npm run build"
   },
   "config": {
     "mocha": "--compilers js:babel-core/register ./src/**/__tests__/*.spec.js --require ./src/__tests__/setup.js"
