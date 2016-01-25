@@ -1,13 +1,19 @@
-# React-Event-Listener [![Travis CI][travis-image]][travis-url] [![Quality][codeclimate-image]][codeclimate-url] [![Coverage][codeclimate-coverage-image]][codeclimate-coverage-url] [![Dependencies][gemnasium-image]][gemnasium-url] [![Gitter][gitter-image]][gitter-url]
-> A React mixin that enable components to bind events
+# React event listener
 
+> A React mixin that enable components to bind events.
+
+[![npm version](https://img.shields.io/npm/v/react-event-listener.svg?style=flat-square)](https://www.npmjs.com/package/react-event-listener)
+[![npm downloads](https://img.shields.io/npm/dm/react-event-listener.svg?style=flat-square)](https://www.npmjs.com/package/react-event-listener)
+[![Build Status](https://travis-ci.org/oliviertassinari/react-event-listener.svg?branch=master)](https://travis-ci.org/oliviertassinari/react-event-listener)
+
+[![Dependencies](https://img.shields.io/david/oliviertassinari/react-event-listener.svg?style=flat-square)](https://david-dm.org/oliviertassinari/react-event-listener)
+[![DevDependencies](https://img.shields.io/david/dev/oliviertassinari/react-event-listener.svg?style=flat-square)](https://david-dm.org/oliviertassinari/react-event-listener#info=devDependencies&view=list)
 
 ## Getting Started
 
 ```sh
 npm install react-event-listener
 ```
-
 
 ## Usage
 
@@ -30,7 +36,6 @@ React.createClass({
   onMouseMove: function() {
   },
 });
-
 ```
 
 ### Note on Testing
@@ -42,8 +47,6 @@ See our [test cases](https://github.com/oliviertassinari/react-event-listener/bl
 
 ## Contributing
 
-[![devDependency Status][david-dm-image]][david-dm-url]
-
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
@@ -54,20 +57,3 @@ See our [test cases](https://github.com/oliviertassinari/react-event-listener/bl
 ## License
 
 MIT
-
-
-[npm-image]: https://img.shields.io/npm/v/react-event-listener.svg?style=flat-square
-[npm-url]: https://www.npmjs.org/package/react-event-listener
-
-[travis-image]: https://img.shields.io/travis/oliviertassinari/react-event-listener.svg?style=flat-square
-[travis-url]: https://travis-ci.org/oliviertassinari/react-event-listener
-[codeclimate-image]: https://img.shields.io/codeclimate/github/oliviertassinari/react-event-listener.svg?style=flat-square
-[codeclimate-url]: https://codeclimate.com/github/oliviertassinari/react-event-listener
-[codeclimate-coverage-image]: https://img.shields.io/codeclimate/coverage/github/oliviertassinari/react-event-listener.svg?style=flat-square
-[codeclimate-coverage-url]: https://codeclimate.com/github/oliviertassinari/react-event-listener
-[gemnasium-image]: https://img.shields.io/gemnasium/oliviertassinari/react-event-listener.svg?style=flat-square
-[gemnasium-url]: https://gemnasium.com/oliviertassinari/react-event-listener
-[gitter-image]: https://badges.gitter.im/Join%20Chat.svg
-[gitter-url]: https://gitter.im/oliviertassinari/react-event-listener?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
-[david-dm-image]: https://img.shields.io/david/dev/oliviertassinari/react-event-listener.svg?style=flat-square
-[david-dm-url]: https://david-dm.org/oliviertassinari/react-event-listener#info=devDependencies
