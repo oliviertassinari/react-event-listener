@@ -1,69 +1,71 @@
-import {
-  default as expect,
+import React from 'react';
+import expect, {
   createSpy,
-} from "expect";
-
-import {
-  default as React,
-} from "react";
-
+} from 'expect';
 import {
   render,
   unmountComponentAtNode,
-} from "react-dom";
-
+} from 'react-dom';
 import {
-  default as TestUtils,
   Simulate,
-} from "react-addons-test-utils";
+} from 'react-addons-test-utils';
+import EventListener from '../index';
 
-import {
-  default as ReactEventListener,
-} from "../index";
-
-describe(`ReactEventListener`, () => {
+describe('EventListener', () => {
   let node;
-  beforeEach(function () {
+  beforeEach(() => {
     // Pattern from "react-router": http://git.io/vWpfs
-    node = document.createElement(`div`);
+    node = document.createElement('div');
     document.body.appendChild(node);
   });
 
-  afterEach(function () {
+  afterEach(() => {
     unmountComponentAtNode(node);
     node.parentNode.removeChild(node);
   });
 
   [
     {
-      contextName: `using Simulate.click(extraNode)`,
-      name: `should not invoke event listener to document`,
-      invokeFn (extraNode) { Simulate.click(extraNode); },
-      expectFn (spy) { expect(spy).toNotHaveBeenCalled(); },
+      contextName: 'using Simulate.click(extraNode)',
+      name: 'should not invoke event listener to document',
+      invokeFn(extraNode) {
+        Simulate.click(extraNode);
+      },
+      expectFn(spy) {
+        expect(spy).toNotHaveBeenCalled();
+      },
     },
     {
-      contextName: `using extraNode.click()`,
-      name: `should invoke event listener to document`,
-      invokeFn (extraNode) { extraNode.click() },
-      expectFn (spy) { expect(spy).toHaveBeenCalled(); },
+      contextName: 'using extraNode.click()',
+      name: 'should invoke event listener to document',
+      invokeFn(extraNode) {
+        extraNode.click();
+      },
+      expectFn(spy) {
+        expect(spy).toHaveBeenCalled();
+      },
     },
   ].forEach(({contextName, name, invokeFn, expectFn}) => {
     context(contextName, () => {
-      it(name, function (done) {
+      it(name, (done) => {
         const TextComponent = React.createClass({
-          mixins: [ReactEventListener],
+          propTypes: {
+            onClick: React.PropTypes.func,
+          },
+
+          mixins: [EventListener],
 
           listeners: {
             document: {
-              click: `handleClick`,
+              click: 'handleClick',
             },
           },
 
-          handleClick () {
+          handleClick() {
             this.props.onClick();
           },
 
-          render () {
+          render() {
             return (
               <div />
             );
@@ -73,13 +75,11 @@ describe(`ReactEventListener`, () => {
         const spy = createSpy();
 
         render((
-          <TextComponent
-            onClick={spy}
-          />
-        ), node, function () {
+          <TextComponent onClick={spy} />
+        ), node, () => {
           expect(spy).toNotHaveBeenCalled();
 
-          const extraNode = document.createElement(`button`);
+          const extraNode = document.createElement('button');
           document.body.appendChild(extraNode);
 
           invokeFn(extraNode);
