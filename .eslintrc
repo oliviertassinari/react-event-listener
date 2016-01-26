@@ -15,12 +15,6 @@ plugins:
 ecmaFeatures:
   jsx: true
 
-globals:
-  ga: false
-  cordova: false
-  emit: false
-  browser: true
-
 extends: eslint:recommended
 
 rules:
@@ -108,7 +102,7 @@ rules:
   react/no-is-mounted: 2
   react/no-unknown-property: 2
   react/prop-types: 2
-  react/prefer-es6-class: 0 # One day
+  react/prefer-es6-class: 2
   react/react-in-jsx-scope: 2
   react/require-extension: 2
   react/self-closing-comp: 2
