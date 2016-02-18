@@ -1,6 +1,6 @@
 # React event listener
 
-> A React component that allow to bind events on the global scope.
+> A React component for binding events on the global scope.
 
 [![npm version](https://img.shields.io/npm/v/react-event-listener.svg?style=flat-square)](https://www.npmjs.com/package/react-event-listener)
 [![npm downloads](https://img.shields.io/npm/dm/react-event-listener.svg?style=flat-square)](https://www.npmjs.com/package/react-event-listener)
