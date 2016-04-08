@@ -4,7 +4,7 @@ function on(element, type, callback) {
   if (element.addEventListener) {
     element.addEventListener(type, callback);
   } else { // IE8+ Support
-    element.attachEvent('on' + type, () => {
+    element.attachEvent(`on${type}`, () => {
       callback.call(element);
     });
   }
@@ -14,7 +14,7 @@ function off(element, type, callback) {
   if (element.removeEventListener) {
     element.removeEventListener(type, callback);
   } else { // IE8+ Support
-    element.detachEvent('on' + type, callback);
+    element.detachEvent(`on${type}`, callback);
   }
 }
 
