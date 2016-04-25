@@ -33,13 +33,20 @@ class MyComponent extends React.Component {
   render() {
     return (
       <div>
-        <EventListener node={document} capture onMouseMove={this.handleMouseMove} />
-        <EventListener node={window} onResize={this.handleResize} />
+        <EventListener target={document} capture onMouseMove={this.handleMouseMove} />
+        <EventListener target={window} onResize={this.handleResize} />
       </div>
     );
   }
 }
 ```
+
+## Pure rendering note
+
+You should avoid passing inline functions for listeners, because this creates a new `Function` instance on every
+render, defeating `EventListener`'s `shouldComponentUpdate`, and triggering an update cycle where it removes its old
+listeners and adds its new listeners (so that it can stay up-to-date with the props you passed in).
+
 
 ### Note on Testing
 

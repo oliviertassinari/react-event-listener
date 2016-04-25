@@ -59,7 +59,7 @@ describe('EventListener', () => {
 
           render() {
             return (
-              <EventListener node={document} onClick={this.handleClick} />
+              <EventListener target={document} onClick={this.handleClick} />
             );
           }
         }
@@ -94,8 +94,8 @@ describe('EventListener', () => {
     it('removes old listeners', () => {
       const spy = createSpy();
 
-      render(<EventListener node={document.body} onClick={spy} />, node);
-      render(<EventListener node={document.body} />, node);
+      render(<EventListener target={document.body} onClick={spy} />, node);
+      render(<EventListener target={document.body} />, node);
 
       document.body.click();
       expect(spy).toNotHaveBeenCalled();
@@ -103,12 +103,12 @@ describe('EventListener', () => {
     it('adds new listeners', () => {
       const spy = createSpy();
 
-      render(<EventListener node={document.body} />, node);
+      render(<EventListener target={document.body} />, node);
 
       document.body.click();
       expect(spy).toNotHaveBeenCalled();
 
-      render(<EventListener node={document.body} onClick={spy} />, node);
+      render(<EventListener target={document.body} onClick={spy} />, node);
 
       document.body.click();
       expect(spy).toHaveBeenCalled();
@@ -116,7 +116,7 @@ describe('EventListener', () => {
     it('removes listeners from old node', () => {
       const spy = createSpy();
 
-      render(<EventListener node={document.body} onClick={spy} />, node);
+      render(<EventListener target={document.body} onClick={spy} />, node);
       render(<EventListener onClick={spy} />, node);
 
       document.body.click();
@@ -126,8 +126,7 @@ describe('EventListener', () => {
       const spy = createSpy();
 
       render(<EventListener onClick={spy} />, node);
-      render(<EventListener node={document.body} onClick={spy} />, node);
-
+      render(<EventListener target={document.body} onClick={spy} />, node);
       document.body.click();
       expect(spy).toHaveBeenCalled();
     });
@@ -152,7 +151,7 @@ describe('EventListener', () => {
       const calls = [];
 
       render(<div>
-        <EventListener node={document} capture={true} onClick={() => calls.push('outer')} />
+        <EventListener target={document} capture={true} onClick={() => calls.push('outer')} />
         <button ref={(c) => button = c} onClick={() => calls.push('inner')} />
       </div>, node);
 

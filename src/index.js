@@ -3,28 +3,27 @@
 import React, {Component, PropTypes} from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 
-function on(node: Node, eventName: string, callback: Function, capture?: boolean): void {
-  if (node.addEventListener) {
-    node.addEventListener(eventName, callback, capture);
-  } else if (node.attachEvent) { // IE8+ Support
-    node.attachEvent(`on${eventName}`, () => {
-      callback.call(node);
+function on(target: Object, eventName: string, callback: Function, capture?: boolean): void {
+  if (target.addEventListener) {
+    target.addEventListener(eventName, callback, capture);
+  } else if (target.attachEvent) { // IE8+ Support
+    target.attachEvent(`on${eventName}`, () => {
+      callback.call(target);
     });
   }
 }
-
-function off(node: Node, eventName: string, callback: Function, capture?: boolean): void {
-  if (node.removeEventListener) {
-    node.removeEventListener(eventName, callback, capture);
-  } else if (node.detachEvent) { // IE8+ Support
-    node.detachEvent(`on${eventName}`, callback);
+function off(target: Object, eventName: string, callback: Function, capture?: boolean): void {
+  if (target.removeEventListener) {
+    target.removeEventListener(eventName, callback, capture);
+  } else if (target.detachEvent) { // IE8+ Support
+    target.detachEvent(`on${eventName}`, callback);
   }
 }
 
 type Props = {
   children?: React.Element,
   capture: boolean,
-  node?: Node,
+  target?: EventTarget,
   [event: string]: Function
 };
 
@@ -50,11 +49,11 @@ export default class EventListener extends Component<DefaultProps, Props, void> 
     /**
      * You can provide a children too.
      */
-    children: PropTypes.node,
+    children: PropTypes.target,
     /**
-     * The DOM node to listen to.
+     * The DOM target to listen to.
      */
-    node: PropTypes.instanceOf(Node),
+    target: PropTypes.instanceOf(Node),
   };
 
   static defaultProps = {
@@ -82,16 +81,16 @@ export default class EventListener extends Component<DefaultProps, Props, void> 
   }
 
   addListeners: () => void = () => {
-    const {capture, node} = this.props;
-    if (node) {
-      forEachListener(this.props, (eventName, listener) => on(node, eventName, listener, capture));
+    const {capture, target} = this.props;
+    if (target) {
+      forEachListener(this.props, (eventName, listener) => on(target, eventName, listener, capture));
     }
   };
 
   removeListeners: () => void = () => {
-    const {capture, node} = this.props;
-    if (node) {
-      forEachListener(this.props, (eventName, listener) => off(node, eventName, listener, capture));
+    const {capture, target} = this.props;
+    if (target) {
+      forEachListener(this.props, (eventName, listener) => off(target, eventName, listener, capture));
     }
   };
 
