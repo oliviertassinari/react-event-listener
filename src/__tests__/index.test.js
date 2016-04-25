@@ -59,7 +59,7 @@ describe('EventListener', () => {
 
           render() {
             return (
-              <EventListener elementName="document" onClick={this.handleClick} />
+              <EventListener node={document} onClick={this.handleClick} />
             );
           }
         }
@@ -81,6 +81,84 @@ describe('EventListener', () => {
           done();
         });
       });
+    });
+  });
+
+  context('with no node', () => {
+    it("doesn't throw error", () => {
+      render(<EventListener onClick={() => {}} />, node);
+    });
+  });
+
+  context('when props change', () => {
+    it('removes old listeners', () => {
+      const spy = createSpy();
+
+      render(<EventListener node={document.body} onClick={spy} />, node);
+      render(<EventListener node={document.body} />, node);
+
+      document.body.click();
+      expect(spy).toNotHaveBeenCalled();
+    });
+    it('adds new listeners', () => {
+      const spy = createSpy();
+
+      render(<EventListener node={document.body} />, node);
+
+      document.body.click();
+      expect(spy).toNotHaveBeenCalled();
+
+      render(<EventListener node={document.body} onClick={spy} />, node);
+
+      document.body.click();
+      expect(spy).toHaveBeenCalled();
+    });
+    it('removes listeners from old node', () => {
+      const spy = createSpy();
+
+      render(<EventListener node={document.body} onClick={spy} />, node);
+      render(<EventListener onClick={spy} />, node);
+
+      document.body.click();
+      expect(spy).toNotHaveBeenCalled();
+    });
+    it('adds listeners to new node', () => {
+      const spy = createSpy();
+
+      render(<EventListener onClick={spy} />, node);
+      render(<EventListener node={document.body} onClick={spy} />, node);
+
+      document.body.click();
+      expect(spy).toHaveBeenCalled();
+    });
+    it("doesn't update if props are shallow equal", () => {
+      const spy = createSpy();
+      const inst = render(<EventListener node={document.body} onClick={spy} />, node);
+      const _componentWillUpdate = inst.componentWillUpdate;
+      let updated = false;
+      inst.componentWillUpdate = (...args) => {
+        updated = true;
+        _componentWillUpdate(...args);
+      };
+      render(<EventListener node={document.body} onClick={spy} />, node);
+      expect(updated).toBe(false);
+    });
+  });
+
+  context('with capture', () => {
+    it('attaches listeners with capture', () => {
+      let button;
+
+      const calls = [];
+
+      render(<div>
+        <EventListener node={document} capture={true} onClick={() => calls.push('outer')} />
+        <button ref={(c) => button = c} onClick={() => calls.push('inner')} />
+      </div>, node);
+
+      expect(calls.length).toBe(0);
+      button.click();
+      expect(calls).toEqual(['outer', 'inner']);
     });
   });
 });

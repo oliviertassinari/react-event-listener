@@ -33,8 +33,8 @@ class MyComponent extends React.Component {
   render() {
     return (
       <div>
-        <EventListener elementName="document" onMouseMove={this.handleMouseMove} />
-        <EventListener elementName="window" onResize={this.handleResize} />
+        <EventListener node={document} capture onMouseMove={this.handleMouseMove} />
+        <EventListener node={window} onResize={this.handleResize} />
       </div>
     );
   }
@@ -50,11 +50,18 @@ See our [test cases](https://github.com/oliviertassinari/react-event-listener/bl
 
 ## Contributing
 
+Note: you need to have Flow 0.23.0 or greater to be installed.
+
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+
+## Collaborators
+
+Andy Edwards ([jedwards1211](https://github.com/jedwards1211))
 
 
 ## License
