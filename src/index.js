@@ -1,4 +1,4 @@
-import React from 'react';
+import {PropTypes, Component} from 'react';
 
 function on(element, type, callback) {
   if (element.addEventListener) {
@@ -33,17 +33,17 @@ function listenersForEach(props, callback) {
   }
 }
 
-export default class EventListener extends React.Component {
+export default class EventListener extends Component {
   static propTypes = {
+    /**
+     * You can provide a children too.
+     */
+    children: PropTypes.node,
     /**
      * Name of the element that we will be listening to.
      */
-    elementName: React.PropTypes.string,
+    elementName: PropTypes.string,
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     listenersForEach(this.props, (element, eventName, callback) => {
@@ -58,6 +58,6 @@ export default class EventListener extends React.Component {
   }
 
   render() {
-    return null;
+    return this.props.children || null;
   }
 }
