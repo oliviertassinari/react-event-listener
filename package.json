@@ -1,6 +1,6 @@
 {
   "name": "react-event-listener",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A React component that allow to bind events on the global scope",
   "main": "lib/index.js",
   "scripts": {
