@@ -1,8 +1,9 @@
 language: node_js
+sudo: false
 node_js:
-- "4"
+  - "stable"
 script:
-- npm run test:cov
+  - npm run test
 after_script:
-- if [[ `node --version` == *v4* ]]; then cat ./coverage/lcov.info | ./node_modules/.bin/codeclimate-test-reporter;
-  fi
+  - if [[ `node --version` == *v4* ]]; then cat ./coverage/lcov.info | ./node_modules/.bin/codeclimate-test-reporter;
+    fi
