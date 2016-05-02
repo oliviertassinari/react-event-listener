@@ -33,13 +33,20 @@ class MyComponent extends React.Component {
   render() {
     return (
       <div>
-        <EventListener elementName="document" onMouseMove={this.handleMouseMove} />
-        <EventListener elementName="window" onResize={this.handleResize} />
+        <EventListener target={document} capture onMouseMove={this.handleMouseMove} />
+        <EventListener target={window} onResize={this.handleResize} />
       </div>
     );
   }
 }
 ```
+
+## Pure rendering note
+
+You should avoid passing inline functions for listeners, because this creates a new `Function` instance on every
+render, defeating `EventListener`'s `shouldComponentUpdate`, and triggering an update cycle where it removes its old
+listeners and adds its new listeners (so that it can stay up-to-date with the props you passed in).
+
 
 ### Note on Testing
 
@@ -50,11 +57,18 @@ See our [test cases](https://github.com/oliviertassinari/react-event-listener/bl
 
 ## Contributing
 
+Note: you need to have Flow 0.23.0 or greater to be installed.
+
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+
+## Collaborators
+
+Andy Edwards ([jedwards1211](https://github.com/jedwards1211))
 
 
 ## License
