@@ -45,7 +45,8 @@
     "react": "^15.0.1",
     "react-addons-test-utils": "^15.0.1",
     "react-dom": "^15.0.1",
-    "rimraf": "^2.4.3"
+    "rimraf": "^2.4.3",
+    "sinon": "^1.17.4"
   },
   "dependencies": {
     "fbjs": "^0.8.0"

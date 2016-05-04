@@ -2,11 +2,9 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 import {assert} from 'chai';
+import {spy} from 'sinon';
 import EventListener from './index';
 
-import expect, {
-  createSpy,
-} from 'expect';
 import {
   render,
   unmountComponentAtNode,
@@ -57,8 +55,8 @@ describe('EventListener', () => {
       invokeFn(extraNode) {
         Simulate.click(extraNode);
       },
-      expectFn(spy) {
-        expect(spy).toNotHaveBeenCalled();
+      expectFn(handle) {
+        assert.strictEqual(handle.callCount, 0);
       },
     },
     {
@@ -67,8 +65,8 @@ describe('EventListener', () => {
       invokeFn(extraNode) {
         extraNode.click();
       },
-      expectFn(spy) {
-        expect(spy).toHaveBeenCalled();
+      expectFn(handle) {
+        assert.strictEqual(handle.callCount, 1);
       },
     },
   ].forEach(({contextName, name, invokeFn, expectFn}) => {
@@ -90,18 +88,18 @@ describe('EventListener', () => {
           }
         }
 
-        const spy = createSpy();
+        const handleClick = spy();
 
         render((
-          <TextComponent onClick={spy} />
+          <TextComponent onClick={handleClick} />
         ), node, () => {
-          expect(spy).toNotHaveBeenCalled();
+          assert.strictEqual(handleClick.callCount, 0);
 
           const extraNode = document.createElement('button');
           document.body.appendChild(extraNode);
 
           invokeFn(extraNode);
-          expectFn(spy);
+          expectFn(handleClick);
 
           extraNode.parentNode.removeChild(extraNode);
           done();
@@ -118,55 +116,59 @@ describe('EventListener', () => {
 
   describe('when props change', () => {
     it('removes old listeners', () => {
-      const spy = createSpy();
+      const handleClick = spy();
 
-      render(<EventListener target={document.body} onClick={spy} />, node);
+      render(<EventListener target={document.body} onClick={handleClick} />, node);
       render(<EventListener target={document.body} />, node);
 
       document.body.click();
-      expect(spy).toNotHaveBeenCalled();
+      assert.strictEqual(handleClick.callCount, 0);
     });
+
     it('adds new listeners', () => {
-      const spy = createSpy();
+      const handleClick = spy();
 
       render(<EventListener target={document.body} />, node);
 
       document.body.click();
-      expect(spy).toNotHaveBeenCalled();
+      assert.strictEqual(handleClick.callCount, 0);
 
-      render(<EventListener target={document.body} onClick={spy} />, node);
+      render(<EventListener target={document.body} onClick={handleClick} />, node);
 
       document.body.click();
-      expect(spy).toHaveBeenCalled();
+      assert.strictEqual(handleClick.callCount, 1);
     });
+
     it('removes listeners from old node', () => {
-      const spy = createSpy();
+      const handleClick = spy();
 
-      render(<EventListener target={document.body} onClick={spy} />, node);
-      render(<EventListener onClick={spy} />, node);
+      render(<EventListener target={document.body} onClick={handleClick} />, node);
+      render(<EventListener onClick={handleClick} />, node);
 
       document.body.click();
-      expect(spy).toNotHaveBeenCalled();
+      assert.strictEqual(handleClick.callCount, 0);
     });
+
     it('adds listeners to new node', () => {
-      const spy = createSpy();
+      const handleClick = spy();
 
-      render(<EventListener onClick={spy} />, node);
-      render(<EventListener target={document.body} onClick={spy} />, node);
+      render(<EventListener onClick={handleClick} />, node);
+      render(<EventListener target={document.body} onClick={handleClick} />, node);
       document.body.click();
-      expect(spy).toHaveBeenCalled();
+      assert.strictEqual(handleClick.callCount, 1);
     });
+
     it("doesn't update if props are shallow equal", () => {
-      const spy = createSpy();
-      const inst = render(<EventListener target={document.body} onClick={spy} />, node);
+      const handleClick = spy();
+      const inst = render(<EventListener target={document.body} onClick={handleClick} />, node);
       const _componentWillUpdate = inst.componentWillUpdate;
       let updated = false;
       inst.componentWillUpdate = (...args) => {
         updated = true;
         _componentWillUpdate(...args);
       };
-      render(<EventListener target={document.body} onClick={spy} />, node);
-      expect(updated).toBe(false);
+      render(<EventListener target={document.body} onClick={handleClick} />, node);
+      assert.strictEqual(updated, false);
     });
   });
 
