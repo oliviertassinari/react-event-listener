@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, {Component, PropTypes} from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
+import shallowEqual from 'fbjs/lib/shallowEqual';
 
 function on(target: Object, eventName: string, callback: Function, capture?: boolean): void {
   if (target.addEventListener) {
@@ -45,11 +45,11 @@ export default class EventListener extends Component<DefaultProps, Props, void> 
     /**
      * Whether to use capturing listeners.
      */
-    capture: PropTypes.bool,
+    capture: PropTypes.bool.isRequired,
     /**
      * You can provide a children too.
      */
-    children: PropTypes.target,
+    children: PropTypes.node,
     /**
      * The DOM target to listen to.
      */
@@ -60,39 +60,47 @@ export default class EventListener extends Component<DefaultProps, Props, void> 
     capture: false,
   };
 
-  componentDidMount() {
+  componentDidMount(): void {
     this.addListeners();
   }
 
-  shouldComponentUpdate(nextProps: Props, nextState: any): boolean {
-    return shallowCompare(this, nextProps, nextState);
+  shouldComponentUpdate(nextProps: Props): boolean {
+    return !shallowEqual(this.props, nextProps);
   }
 
-  componentWillUpdate() {
+  componentWillUpdate(): void {
     this.removeListeners();
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(): void {
     this.addListeners();
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     this.removeListeners();
   }
 
-  addListeners: () => void = () => {
-    const {capture, target} = this.props;
+  addListeners(): void {
+    const {
+      capture,
+      target,
+    } = this.props;
+
     if (target) {
       forEachListener(this.props, (eventName, listener) => on(target, eventName, listener, capture));
     }
-  };
+  }
 
-  removeListeners: () => void = () => {
-    const {capture, target} = this.props;
+  removeListeners(): void {
+    const {
+      capture,
+      target,
+    } = this.props;
+
     if (target) {
       forEachListener(this.props, (eventName, listener) => off(target, eventName, listener, capture));
     }
-  };
+  }
 
   render() {
     return this.props.children || null;
