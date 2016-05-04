@@ -33,13 +33,20 @@ class MyComponent extends Component {
   render() {
     return (
       <div>
-        <EventListener target={window} onResize={this.handleResize} />
+        <EventListener target="window" onResize={this.handleResize} />
         <EventListener target={document} onMouseMove={this.handleMouseMove} capture={true} />
       </div>
     );
   }
 }
 ```
+
+### Note on Server Side rendering
+
+When doing server side rendering, the `document` and the `window are not be available.
+For those circonstances, you can use a string as a `target` or check that they exist
+before rendering the component.
+
 
 ### Note on Performance
 
