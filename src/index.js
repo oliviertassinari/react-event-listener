@@ -53,7 +53,10 @@ export default class EventListener extends Component<DefaultProps, Props, void> 
     /**
      * The DOM target to listen to.
      */
-    target: PropTypes.instanceOf(Node),
+    target: React.PropTypes.oneOfType([
+      React.PropTypes.object,
+      React.PropTypes.string,
+    ]),
   };
 
   static defaultProps = {
@@ -87,7 +90,13 @@ export default class EventListener extends Component<DefaultProps, Props, void> 
     } = this.props;
 
     if (target) {
-      forEachListener(this.props, (eventName, listener) => on(target, eventName, listener, capture));
+      let element = target;
+
+      if (typeof target === 'string') {
+        element = window[target];
+      }
+
+      forEachListener(this.props, (eventName, listener) => on(element, eventName, listener, capture));
     }
   }
 
@@ -98,7 +107,13 @@ export default class EventListener extends Component<DefaultProps, Props, void> 
     } = this.props;
 
     if (target) {
-      forEachListener(this.props, (eventName, listener) => off(target, eventName, listener, capture));
+      let element = target;
+
+      if (typeof target === 'string') {
+        element = window[target];
+      }
+
+      forEachListener(this.props, (eventName, listener) => off(element, eventName, listener, capture));
     }
   }
 

@@ -48,6 +48,24 @@ describe('EventListener', () => {
     node.parentNode.removeChild(node);
   });
 
+  describe('props: target', () => {
+    it('should work with a string', () => {
+      const handleClick = spy();
+
+      render(<EventListener target="document" onClick={handleClick} />, node);
+      document.body.click();
+      assert.strictEqual(handleClick.callCount, 1);
+    });
+
+    it('should work with a node', () => {
+      const handleClick = spy();
+
+      render(<EventListener target={document} onClick={handleClick} />, node);
+      document.body.click();
+      assert.strictEqual(handleClick.callCount, 1);
+    });
+  });
+
   [
     {
       contextName: 'using Simulate.click(extraNode)',
@@ -83,7 +101,7 @@ describe('EventListener', () => {
 
           render() {
             return (
-              <EventListener target={document.body} onClick={this.handleClick} />
+              <EventListener target={document} onClick={this.handleClick} />
             );
           }
         }
@@ -105,18 +123,12 @@ describe('EventListener', () => {
     });
   });
 
-  describe('with no node', () => {
-    it("doesn't throw error", () => {
-      render(<EventListener onClick={() => {}} />, node);
-    });
-  });
-
   describe('when props change', () => {
     it('removes old listeners', () => {
       const handleClick = spy();
 
-      render(<EventListener target={document.body} onClick={handleClick} />, node);
-      render(<EventListener target={document.body} />, node);
+      render(<EventListener target={document} onClick={handleClick} />, node);
+      render(<EventListener target={document} />, node);
 
       document.body.click();
       assert.strictEqual(handleClick.callCount, 0);
@@ -125,12 +137,12 @@ describe('EventListener', () => {
     it('adds new listeners', () => {
       const handleClick = spy();
 
-      render(<EventListener target={document.body} />, node);
+      render(<EventListener target={document} />, node);
 
       document.body.click();
       assert.strictEqual(handleClick.callCount, 0);
 
-      render(<EventListener target={document.body} onClick={handleClick} />, node);
+      render(<EventListener target={document} onClick={handleClick} />, node);
 
       document.body.click();
       assert.strictEqual(handleClick.callCount, 1);
@@ -139,7 +151,7 @@ describe('EventListener', () => {
     it('removes listeners from old node', () => {
       const handleClick = spy();
 
-      render(<EventListener target={document.body} onClick={handleClick} />, node);
+      render(<EventListener target={document} onClick={handleClick} />, node);
       render(<EventListener onClick={handleClick} />, node);
 
       document.body.click();
@@ -150,21 +162,21 @@ describe('EventListener', () => {
       const handleClick = spy();
 
       render(<EventListener onClick={handleClick} />, node);
-      render(<EventListener target={document.body} onClick={handleClick} />, node);
+      render(<EventListener target={document} onClick={handleClick} />, node);
       document.body.click();
       assert.strictEqual(handleClick.callCount, 1);
     });
 
     it("doesn't update if props are shallow equal", () => {
       const handleClick = spy();
-      const inst = render(<EventListener target={document.body} onClick={handleClick} />, node);
+      const inst = render(<EventListener target={document} onClick={handleClick} />, node);
       const _componentWillUpdate = inst.componentWillUpdate;
       let updated = false;
       inst.componentWillUpdate = (...args) => {
         updated = true;
         _componentWillUpdate(...args);
       };
-      render(<EventListener target={document.body} onClick={handleClick} />, node);
+      render(<EventListener target={document} onClick={handleClick} />, node);
       assert.strictEqual(updated, false);
     });
   });
