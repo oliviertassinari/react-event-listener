@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import React, {Component} from 'react';
-import {shallow, mount} from 'enzyme';
+import {shallow} from 'enzyme';
 import {assert} from 'chai';
 import {spy} from 'sinon';
 import EventListener from './index';
