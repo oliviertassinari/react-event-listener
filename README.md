@@ -18,10 +18,10 @@ npm install react-event-listener
 ## Usage
 
 ```js
-import React from 'react';
+import React, {Component} from 'react';
 import EventListener from 'react-event-listener';
 
-class MyComponent extends React.Component {
+class MyComponent extends Component {
   handleResize = () => {
     console.log('resize');
   };
@@ -33,15 +33,15 @@ class MyComponent extends React.Component {
   render() {
     return (
       <div>
-        <EventListener target={document} capture onMouseMove={this.handleMouseMove} />
         <EventListener target={window} onResize={this.handleResize} />
+        <EventListener target={document} onMouseMove={this.handleMouseMove} capture={true} />
       </div>
     );
   }
 }
 ```
 
-## Pure rendering note
+### Note on Performance
 
 You should avoid passing inline functions for listeners, because this creates a new `Function` instance on every
 render, defeating `EventListener`'s `shouldComponentUpdate`, and triggering an update cycle where it removes its old
@@ -68,7 +68,7 @@ Note: you need to have Flow 0.23.0 or greater to be installed.
 
 ## Collaborators
 
-Andy Edwards ([jedwards1211](https://github.com/jedwards1211))
+ - Andy Edwards ([jedwards1211](https://github.com/jedwards1211))
 
 
 ## License

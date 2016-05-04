@@ -1,6 +1,6 @@
 /* eslint-env mocha */
-import React from 'react';
-import {shallow} from 'enzyme';
+import React, {Component} from 'react';
+import {shallow, mount} from 'enzyme';
 import {assert} from 'chai';
 import {spy} from 'sinon';
 import EventListener from './index';
@@ -71,8 +71,8 @@ describe('EventListener', () => {
     },
   ].forEach(({contextName, name, invokeFn, expectFn}) => {
     describe(contextName, () => {
-      it(name, (done) => {
-        class TextComponent extends React.Component {
+      it(name, () => {
+        class TextComponent extends Component {
           static propTypes = {
             onClick: React.PropTypes.func,
           };
@@ -83,27 +83,24 @@ describe('EventListener', () => {
 
           render() {
             return (
-              <EventListener target={document} onClick={this.handleClick} />
+              <EventListener target={document.body} onClick={this.handleClick} />
             );
           }
         }
 
         const handleClick = spy();
 
-        render((
-          <TextComponent onClick={handleClick} />
-        ), node, () => {
-          assert.strictEqual(handleClick.callCount, 0);
+        render(<TextComponent onClick={handleClick} />, node);
 
-          const extraNode = document.createElement('button');
-          document.body.appendChild(extraNode);
+        assert.strictEqual(handleClick.callCount, 0);
 
-          invokeFn(extraNode);
-          expectFn(handleClick);
+        const extraNode = document.createElement('button');
+        document.body.appendChild(extraNode);
 
-          extraNode.parentNode.removeChild(extraNode);
-          done();
-        });
+        invokeFn(extraNode);
+        expectFn(handleClick);
+
+        extraNode.parentNode.removeChild(extraNode);
       });
     });
   });
