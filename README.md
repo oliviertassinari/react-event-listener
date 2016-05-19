@@ -1,4 +1,4 @@
-# React event listener
+# React Event Listener
 
 > A React component for binding events on the global scope.
 
@@ -41,21 +41,21 @@ class MyComponent extends Component {
 }
 ```
 
-### Note on Server Side rendering
+### Note on server-side rendering
 
-When doing server side rendering, the `document` and the `window are not be available.
-For those circonstances, you can use a string as a `target` or check that they exist
-before rendering the component.
+When doing server side rendering, `document` and `window` aren't available.
+You can use a string as a `target`, or check that they exist before rendering 
+the component.
 
 
-### Note on Performance
+### Note on performance
 
 You should avoid passing inline functions for listeners, because this creates a new `Function` instance on every
 render, defeating `EventListener`'s `shouldComponentUpdate`, and triggering an update cycle where it removes its old
 listeners and adds its new listeners (so that it can stay up-to-date with the props you passed in).
 
 
-### Note on Testing
+### Note on testing
 
 In [this](https://github.com/facebook/react/issues/5043) issue from React, `TestUtils.Simulate.` methods won't bubble up to `window` or `document`. As a result, you must use [`document.dispatchEvent`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/dispatchEvent) or simulate event using [native DOM api](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/click).
 
