@@ -17,7 +17,7 @@ npm install --save react-event-listener
 
 ## The problem solved
 
-This module provide a declarative way to bind event to a global event emitter.
+This module provide a **declarative way** to bind event to a global `EventTarget`.
 It's using the React lifecycle to bind and unbind at the right time.
 
 ## Usage
