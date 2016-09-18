@@ -181,7 +181,7 @@ describe('EventListener', () => {
     });
   });
 
-  describe('props: capture', () => {
+  describe('when using capture phase', () => {
     it('attaches listeners with capture', () => {
       let button;
       const calls = [];
@@ -190,8 +190,7 @@ describe('EventListener', () => {
         <div>
           <EventListener
             target={document}
-            capture={true}
-            onClick={() => calls.push('outer')}
+            onClickCapture={() => calls.push('outer')}
           />
           <button
             ref={(c) => button = c}
