@@ -39,7 +39,7 @@ class MyComponent extends Component {
     return (
       <div>
         <EventListener target="window" onResize={this.handleResize} />
-        <EventListener target={document} onMouseMove={this.handleMouseMove} capture={true} />
+        <EventListener target={document} onMouseMoveCapture={this.handleMouseMove} />
       </div>
     );
   }
