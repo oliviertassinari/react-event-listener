@@ -22,30 +22,26 @@ function off(target: Object, eventName: string, callback: Function, capture?: bo
 
 type Props = {
   children?: React.Element,
-  capture: boolean,
   target?: EventTarget,
   [event: string]: Function
 };
 
-type DefaultProps = {
-  capture: boolean
-};
-
-function forEachListener(props: Props, iteratee: (eventName: string, listener: Function) => any): void {
+function forEachListener(
+  props: Props,
+  iteratee: (eventName: string, listener: Function, capture?: boolean) => any
+): void {
   for (const name in props) {
     if (name.substring(0, 2) === 'on' && props[name] instanceof Function) {
-      const eventName = name.substring(2).toLowerCase();
-      iteratee(eventName, props[name]);
+      let eventName = name.substring(2).toLowerCase();
+      const capture = name.substr(-7).toLowerCase() === 'capture';
+      eventName = capture ? eventName.substring(0, eventName.length - 7) : eventName;
+      iteratee(eventName, props[name], capture);
     }
   }
 }
 
-export default class EventListener extends Component<DefaultProps, Props, void> {
+export default class EventListener extends Component<Props, void> {
   static propTypes = {
-    /**
-     * Whether to use capturing listeners.
-     */
-    capture: PropTypes.bool.isRequired,
     /**
      * You can provide a children too.
      */
@@ -57,10 +53,6 @@ export default class EventListener extends Component<DefaultProps, Props, void> 
       React.PropTypes.object,
       React.PropTypes.string,
     ]),
-  };
-
-  static defaultProps = {
-    capture: false,
   };
 
   componentDidMount(): void {
@@ -85,7 +77,6 @@ export default class EventListener extends Component<DefaultProps, Props, void> 
 
   addListeners(): void {
     const {
-      capture,
       target,
     } = this.props;
 
@@ -96,13 +87,12 @@ export default class EventListener extends Component<DefaultProps, Props, void> 
         element = window[target];
       }
 
-      forEachListener(this.props, (eventName, listener) => on(element, eventName, listener, capture));
+      forEachListener(this.props, on.bind(null, element));
     }
   }
 
   removeListeners(): void {
     const {
-      capture,
       target,
     } = this.props;
 
@@ -113,7 +103,7 @@ export default class EventListener extends Component<DefaultProps, Props, void> 
         element = window[target];
       }
 
-      forEachListener(this.props, (eventName, listener) => off(element, eventName, listener, capture));
+      forEachListener(this.props, off.bind(null, element));
     }
   }
 
