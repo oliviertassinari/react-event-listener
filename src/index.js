@@ -1,4 +1,4 @@
-/* @flow */
+// @flow
 
 import React, {Component, PropTypes} from 'react';
 import shallowEqual from 'fbjs/lib/shallowEqual';
@@ -12,6 +12,7 @@ function on(target: Object, eventName: string, callback: Function, capture?: boo
     });
   }
 }
+
 function off(target: Object, eventName: string, callback: Function, capture?: boolean): void {
   if (target.removeEventListener) {
     target.removeEventListener(eventName, callback, capture);
@@ -21,7 +22,7 @@ function off(target: Object, eventName: string, callback: Function, capture?: bo
 }
 
 type Props = {
-  children?: React.Element,
+  children?: React.Element<any>,
   target?: EventTarget,
   [event: string]: Function
 };
@@ -32,15 +33,17 @@ function forEachListener(
 ): void {
   for (const name in props) {
     if (name.substring(0, 2) === 'on' && props[name] instanceof Function) {
-      let eventName = name.substring(2).toLowerCase();
       const capture = name.substr(-7).toLowerCase() === 'capture';
+
+      let eventName = name.substring(2).toLowerCase();
       eventName = capture ? eventName.substring(0, eventName.length - 7) : eventName;
+
       iteratee(eventName, props[name], capture);
     }
   }
 }
 
-export default class EventListener extends Component<Props, void> {
+export default class EventListener extends Component {
   static propTypes = {
     /**
      * You can provide a children too.
@@ -49,9 +52,9 @@ export default class EventListener extends Component<Props, void> {
     /**
      * The DOM target to listen to.
      */
-    target: React.PropTypes.oneOfType([
-      React.PropTypes.object,
-      React.PropTypes.string,
+    target: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.string,
     ]),
   };
 
