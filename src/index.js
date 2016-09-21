@@ -1,7 +1,7 @@
 // @flow
 
 import React, {Component, PropTypes} from 'react';
-import shallowEqual from 'fbjs/lib/shallowEqual';
+import shallowCompare from 'react-addons-shallow-compare';
 
 function on(target: Object, eventName: string, callback: Function, capture?: boolean): void {
   if (target.addEventListener) {
@@ -26,6 +26,8 @@ type Props = {
   target?: EventTarget,
   [event: string]: Function
 };
+
+const state = {};
 
 function forEachListener(
   props: Props,
@@ -63,7 +65,10 @@ export default class EventListener extends Component {
   }
 
   shouldComponentUpdate(nextProps: Props): boolean {
-    return !shallowEqual(this.props, nextProps);
+    return shallowCompare({
+      props: this.props,
+      state: state,
+    }, nextProps, state);
   }
 
   componentWillUpdate(): void {

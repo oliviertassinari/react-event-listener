@@ -168,7 +168,7 @@ describe('EventListener', () => {
     });
 
     it("doesn't update if props are shallow equal", () => {
-      const handleClick = spy();
+      const handleClick = () => {};
       const inst = render(<EventListener target={document} onClick={handleClick} />, node);
       const _componentWillUpdate = inst.componentWillUpdate;
       let updated = false;
