@@ -1,8 +1,8 @@
 [ignore]
 
-[libs]
+.*/node_modules/fbjs/*
 
-./node_modules/fbjs/flow/lib
+[libs]
 
 [options]
 
