@@ -1,10 +1,15 @@
 // @flow
 
-const win = window;
+// Inspired by https://github.com/facebook/fbjs/blob/master/packages/fbjs/src/core/ExecutionEnvironment.js
+export const canUseDOM = !!(
+  typeof window !== 'undefined' &&
+  window.document &&
+  window.document.createElement
+);
 
-export const addEventListener = 'addEventListener' in win;
-export const removeEventListener = 'removeEventListener' in win;
+export const addEventListener = canUseDOM && 'addEventListener' in window;
+export const removeEventListener = canUseDOM && 'removeEventListener' in window;
 
 // IE8+ Support
-export const attachEvent = 'attachEvent' in win;
-export const detachEvent = 'detachEvent' in win;
+export const attachEvent = canUseDOM && 'attachEvent' in window;
+export const detachEvent = canUseDOM && 'detachEvent' in window;
