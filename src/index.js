@@ -2,11 +2,12 @@
 
 import React, {Component, PropTypes} from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
+import * as supports from './supports';
 
 function on(target: Object, eventName: string, callback: Function, capture?: boolean): void {
-  if (target.addEventListener) {
+  if (supports.addEventListener) {
     target.addEventListener(eventName, callback, capture);
-  } else if (target.attachEvent) { // IE8+ Support
+  } else if (supports.attachEvent) { // IE8+ Support
     target.attachEvent(`on${eventName}`, () => {
       callback.call(target);
     });
@@ -14,9 +15,9 @@ function on(target: Object, eventName: string, callback: Function, capture?: boo
 }
 
 function off(target: Object, eventName: string, callback: Function, capture?: boolean): void {
-  if (target.removeEventListener) {
+  if (supports.removeEventListener) {
     target.removeEventListener(eventName, callback, capture);
-  } else if (target.detachEvent) { // IE8+ Support
+  } else if (supports.detachEvent) { // IE8+ Support
     target.detachEvent(`on${eventName}`, callback);
   }
 }
@@ -84,22 +85,14 @@ export default class EventListener extends Component {
   }
 
   addListeners(): void {
-    const {
-      target,
-    } = this.props;
-
-    if (target) {
-      let element = target;
-
-      if (typeof target === 'string') {
-        element = window[target];
-      }
-
-      forEachListener(this.props, on.bind(null, element));
-    }
+    this.applyListeners(on);
   }
 
   removeListeners(): void {
+    this.applyListeners(off);
+  }
+
+  applyListeners(onOrOff: Function): void {
     const {
       target,
     } = this.props;
@@ -111,7 +104,7 @@ export default class EventListener extends Component {
         element = window[target];
       }
 
-      forEachListener(this.props, off.bind(null, element));
+      forEachListener(this.props, onOrOff.bind(null, element));
     }
   }
 
