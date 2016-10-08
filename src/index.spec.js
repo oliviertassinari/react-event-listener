@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {shallow} from 'enzyme';
 import {assert} from 'chai';
 import {spy} from 'sinon';
-import EventListener from './index';
+import EventListener, {withOptions} from './index';
 
 import {
   render,
@@ -191,6 +191,48 @@ describe('EventListener', () => {
           <EventListener
             target={document}
             onClickCapture={() => calls.push('outer')}
+          />
+          <button
+            ref={(c) => button = c}
+            onClick={() => calls.push('inner')}
+          />
+        </div>,
+        node
+      );
+
+      assert.strictEqual(calls.length, 0);
+      button.click();
+      assert.deepEqual(calls, [
+        'outer',
+        'inner',
+      ], 'Should be called in the right order.');
+    });
+  });
+
+  describe('when using withOptions helper', () => {
+    it('should return handler function & event options of merging default values', () => {
+      const obj = withOptions(() => 'test', {});
+      assert.strictEqual(obj.handler(), 'test');
+      assert.deepEqual(obj.options, {capture: false, passive: false});
+    });
+
+    it('should work with using withOptions helper', () => {
+      const handleClick = spy();
+
+      render(<EventListener target={document} onClick={withOptions(handleClick, {})} />, node);
+      document.body.click();
+      assert.strictEqual(handleClick.callCount, 1);
+    });
+
+    it('attaches listeners with capture (withOptions)', () => {
+      let button;
+      const calls = [];
+
+      render(
+        <div>
+          <EventListener
+            target={document}
+            onClick={withOptions(() => calls.push('outer'), {capture: true})}
           />
           <button
             ref={(c) => button = c}
