@@ -24,11 +24,15 @@ It's using the React lifecycle to bind and unbind at the right time.
 
 ```js
 import React, {Component} from 'react';
-import EventListener from 'react-event-listener';
+import EventListener, {withOptions} from 'react-event-listener';
 
 class MyComponent extends Component {
   handleResize = () => {
     console.log('resize');
+  };
+
+  handleScroll = () => {
+    console.log('scroll');
   };
 
   handleMouseMove = () => {
@@ -38,7 +42,11 @@ class MyComponent extends Component {
   render() {
     return (
       <div>
-        <EventListener target="window" onResize={this.handleResize} />
+        <EventListener
+          target="window"
+          onResize={this.handleResize}
+          onScroll={withOptions(this.handleScroll, {passive: true, capture: false})}
+        />
         <EventListener target={document} onMouseMoveCapture={this.handleMouseMove} />
       </div>
     );
