@@ -78,13 +78,15 @@ function forEachListener(
 }
 
 export function withOptions(handler: Function, options: EventOptions): {handler: Function, options: EventOptions} {
-  if (process.env.NODE_ENV !== 'production' && typeof options === 'undefined') {
-    warning(options, '[react-event-listener] Should be specified options in withOptions.');
-  }
-  return {handler, options: mergeDefaultEventOptions(options)};
+  warning(options, '[react-event-listener] Should be specified options in withOptions.');
+
+  return {
+    handler,
+    options: mergeDefaultEventOptions(options),
+  };
 }
 
-export default class EventListener extends Component {
+class EventListener extends Component {
   static propTypes = {
     /**
      * You can provide a children too.
@@ -150,3 +152,5 @@ export default class EventListener extends Component {
     return this.props.children || null;
   }
 }
+
+export default EventListener;

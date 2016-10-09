@@ -1,4 +1,5 @@
 // @flow
+
 import defineProperty from './define-property';
 
 // Inspired by https://github.com/facebook/fbjs/blob/master/packages/fbjs/src/core/ExecutionEnvironment.js
@@ -21,7 +22,9 @@ export const passiveOption = (() => {
   let cache = null;
 
   return (() => {
-    if (cache != null) return cache;
+    if (cache !== null) {
+      return cache;
+    }
 
     let supportsPassiveOption = false;
 
