@@ -2,6 +2,7 @@
 
 import React, {Component, PropTypes} from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
+import warning from 'warning';
 import * as supports from './supports';
 
 type EventOptions = {
@@ -77,6 +78,9 @@ function forEachListener(
 }
 
 export function withOptions(handler: Function, options: EventOptions): {handler: Function, options: EventOptions} {
+  if (process.env.NODE_ENV !== 'production' && typeof options === 'undefined') {
+    warning(options, '[react-event-listener] Should be specified options in withOptions.');
+  }
   return {handler, options: mergeDefaultEventOptions(options)};
 }
 
