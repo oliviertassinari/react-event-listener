@@ -17,16 +17,24 @@ export const detachEvent = canUseDOM && 'detachEvent' in window;
 
 // Passive options
 // Inspired by https://github.com/Modernizr/Modernizr/blob/master/feature-detects/dom/passiveeventlisteners.js
-export const passiveOption = () => {
-  let supportsPassiveOption = false;
+export const passiveOption = (() => {
+  let cache = null;
 
-  try {
-    window.addEventListener('test', null, defineProperty({}, 'passive', {
-      get() {
-        supportsPassiveOption = true;
-      },
-    }));
-  } catch (e) {} // eslint-disable-line no-empty
+  return (() => {
+    if (cache != null) return cache;
 
-  return supportsPassiveOption;
-};
+    let supportsPassiveOption = false;
+
+    try {
+      window.addEventListener('test', null, defineProperty({}, 'passive', {
+        get() {
+          supportsPassiveOption = true;
+        },
+      }));
+    } catch (e) {} // eslint-disable-line no-empty
+
+    cache = supportsPassiveOption;
+
+    return supportsPassiveOption;
+  })();
+})();
