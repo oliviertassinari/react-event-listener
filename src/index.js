@@ -2,7 +2,6 @@
 
 import React, {Component, PropTypes} from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
-import assign from 'object-assign';
 import * as supports from './supports';
 
 type EventOptions = {
@@ -14,6 +13,10 @@ const defaultEventOptions: EventOptions = {
   capture: false,
   passive: false,
 };
+
+function mergeDefaultEventOptions(options: Object) {
+  return Object.assign({}, defaultEventOptions, options);
+}
 
 function getEventListenerArgs(eventName: string, callback: Function, options: EventOptions): Array<any> {
   const args = [eventName, callback];
@@ -68,13 +71,13 @@ function forEachListener(
     if (isObject) {
       iteratee(eventName, prop.handler, prop.options);
     } else {
-      iteratee(eventName, prop, assign({}, defaultEventOptions, {capture}));
+      iteratee(eventName, prop, mergeDefaultEventOptions({capture}));
     }
   }
 }
 
 export function withOptions(handler: Function, options: EventOptions): {handler: Function, options: EventOptions} {
-  return {handler, options: assign({}, defaultEventOptions, options)};
+  return {handler, options: mergeDefaultEventOptions(options)};
 }
 
 export default class EventListener extends Component {

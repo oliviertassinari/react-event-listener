@@ -52,7 +52,6 @@
     "sinon": "^1.17.6"
   },
   "dependencies": {
-    "object-assign": "^4.1.0",
-    "react-addons-shallow-compare": "^0.14.0 || ^15.0.0"
+    "react-addons-shallow-compare": "^0.14.0 || ^15.0.0",
   }
 }
