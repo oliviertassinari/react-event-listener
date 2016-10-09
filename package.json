@@ -52,6 +52,7 @@
     "sinon": "^1.17.6"
   },
   "dependencies": {
-    "react-addons-shallow-compare": "^0.14.0 || ^15.0.0"
+    "react-addons-shallow-compare": "^0.14.0 || ^15.0.0",
+    "warning": "^3.0.0"
   }
 }

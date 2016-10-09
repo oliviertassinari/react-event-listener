@@ -2,11 +2,32 @@
 
 import React, {Component, PropTypes} from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
+import warning from 'warning';
 import * as supports from './supports';
 
-function on(target: Object, eventName: string, callback: Function, capture?: boolean): void {
+type EventOptions = {
+  capture: boolean;
+  passive: boolean;
+};
+
+const defaultEventOptions: EventOptions = {
+  capture: false,
+  passive: false,
+};
+
+function mergeDefaultEventOptions(options: Object) {
+  return Object.assign({}, defaultEventOptions, options);
+}
+
+function getEventListenerArgs(eventName: string, callback: Function, options: EventOptions): Array<any> {
+  const args = [eventName, callback];
+  args.push(supports.passiveOption ? options : options.capture);
+  return args;
+}
+
+function on(target: Object, eventName: string, callback: Function, options: EventOptions): void {
   if (supports.addEventListener) {
-    target.addEventListener(eventName, callback, capture);
+    target.addEventListener.apply(target, getEventListenerArgs(eventName, callback, options));
   } else if (supports.attachEvent) { // IE8+ Support
     target.attachEvent(`on${eventName}`, () => {
       callback.call(target);
@@ -14,9 +35,9 @@ function on(target: Object, eventName: string, callback: Function, capture?: boo
   }
 }
 
-function off(target: Object, eventName: string, callback: Function, capture?: boolean): void {
+function off(target: Object, eventName: string, callback: Function, options: EventOptions): void {
   if (supports.removeEventListener) {
-    target.removeEventListener(eventName, callback, capture);
+    target.removeEventListener.apply(target, getEventListenerArgs(eventName, callback, options));
   } else if (supports.detachEvent) { // IE8+ Support
     target.detachEvent(`on${eventName}`, callback);
   }
@@ -32,18 +53,35 @@ const state = {};
 
 function forEachListener(
   props: Props,
-  iteratee: (eventName: string, listener: Function, capture?: boolean) => any
+  iteratee: (eventName: string, listener: Function, options?: EventOptions) => any
 ): void {
   for (const name in props) {
-    if (name.substring(0, 2) === 'on' && props[name] instanceof Function) {
-      const capture = name.substr(-7).toLowerCase() === 'capture';
+    if (name.substring(0, 2) !== 'on') continue;
 
-      let eventName = name.substring(2).toLowerCase();
-      eventName = capture ? eventName.substring(0, eventName.length - 7) : eventName;
+    const prop = props[name];
+    const type = typeof prop;
+    const isObject = type === 'object';
+    const isFunction = type === 'function';
 
-      iteratee(eventName, props[name], capture);
+    if (!isObject && !isFunction) continue;
+
+    const capture = name.substr(-7).toLowerCase() === 'capture';
+    let eventName = name.substring(2).toLowerCase();
+    eventName = capture ? eventName.substring(0, eventName.length - 7) : eventName;
+
+    if (isObject) {
+      iteratee(eventName, prop.handler, prop.options);
+    } else {
+      iteratee(eventName, prop, mergeDefaultEventOptions({capture}));
     }
   }
+}
+
+export function withOptions(handler: Function, options: EventOptions): {handler: Function, options: EventOptions} {
+  if (process.env.NODE_ENV !== 'production' && typeof options === 'undefined') {
+    warning(options, '[react-event-listener] Should be specified options in withOptions.');
+  }
+  return {handler, options: mergeDefaultEventOptions(options)};
 }
 
 export default class EventListener extends Component {
