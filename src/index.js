@@ -89,9 +89,9 @@ export function withOptions(handler: Function, options: EventOptions): {handler:
 class EventListener extends Component {
   static propTypes = {
     /**
-     * You can provide a children too.
+     * You can provide a single child too.
      */
-    children: PropTypes.node,
+    children: PropTypes.element,
     /**
      * The DOM target to listen to.
      */
