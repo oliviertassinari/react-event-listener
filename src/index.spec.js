@@ -1,10 +1,10 @@
 /* eslint-env mocha */
-import React, {Component} from 'react';
-import {shallow} from 'enzyme';
-import {assert} from 'chai';
-import {spy} from 'sinon';
-import EventListener, {withOptions} from './index';
+/* eslint-disable flowtype/require-valid-file-annotation */
 
+import React, { Component } from 'react';
+import { shallow } from 'enzyme';
+import { assert } from 'chai';
+import { spy } from 'sinon';
 import {
   render,
   unmountComponentAtNode,
@@ -12,12 +12,13 @@ import {
 import {
   Simulate,
 } from 'react-addons-test-utils';
+import EventListener, { withOptions } from './index';
 
 describe('EventListener', () => {
   describe('props: children', () => {
     it('should work without', () => {
       const wrapper = shallow(
-        <EventListener />
+        <EventListener />,
       );
 
       assert.strictEqual(wrapper.children().length, 0,
@@ -28,7 +29,7 @@ describe('EventListener', () => {
       const wrapper = shallow(
         <EventListener>
           <div>{'Foo'}</div>
-        </EventListener>
+        </EventListener>,
       );
 
       assert.strictEqual(wrapper.children().length, 1,
@@ -87,7 +88,7 @@ describe('EventListener', () => {
         assert.strictEqual(handle.callCount, 1);
       },
     },
-  ].forEach(({contextName, name, invokeFn, expectFn}) => {
+  ].forEach(({ contextName, name, invokeFn, expectFn }) => {
     describe(contextName, () => {
       it(name, () => {
         class TextComponent extends Component {
@@ -170,11 +171,11 @@ describe('EventListener', () => {
     it("doesn't update if props are shallow equal", () => {
       const handleClick = () => {};
       const inst = render(<EventListener target={document} onClick={handleClick} />, node);
-      const _componentWillUpdate = inst.componentWillUpdate;
+      const componentWillUpdate = inst.componentWillUpdate;
       let updated = false;
       inst.componentWillUpdate = (...args) => {
         updated = true;
-        _componentWillUpdate(...args);
+        componentWillUpdate(...args);
       };
       render(<EventListener target={document} onClick={handleClick} />, node);
       assert.strictEqual(updated, false);
@@ -193,11 +194,11 @@ describe('EventListener', () => {
             onClickCapture={() => calls.push('outer')}
           />
           <button
-            ref={(c) => button = c}
+            ref={(c) => { button = c; }}
             onClick={() => calls.push('inner')}
           />
         </div>,
-        node
+        node,
       );
 
       assert.strictEqual(calls.length, 0);
@@ -213,7 +214,7 @@ describe('EventListener', () => {
     it('should return handler function & event options of merging default values', () => {
       const obj = withOptions(() => 'test', {});
       assert.strictEqual(obj.handler(), 'test');
-      assert.deepEqual(obj.options, {capture: false, passive: false});
+      assert.deepEqual(obj.options, { capture: false, passive: false });
     });
 
     it('should work with using withOptions helper', () => {
@@ -225,21 +226,21 @@ describe('EventListener', () => {
     });
 
     it('attaches listeners with capture (withOptions)', () => {
-      let button;
+      let button = null;
       const calls = [];
 
       render(
         <div>
           <EventListener
             target={document}
-            onClick={withOptions(() => calls.push('outer'), {capture: true})}
+            onClick={withOptions(() => calls.push('outer'), { capture: true })}
           />
           <button
-            ref={(c) => button = c}
+            ref={(c) => { button = c; }}
             onClick={() => calls.push('inner')}
           />
         </div>,
-        node
+        node,
       );
 
       assert.strictEqual(calls.length, 0);
