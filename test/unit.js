@@ -1,7 +1,8 @@
+// @flow
+
 import minimist from 'minimist';
 import Mocha from 'mocha';
 import glob from 'glob';
-
 import {
   jsdom,
 } from 'jsdom';

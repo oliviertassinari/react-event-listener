@@ -1,6 +1,7 @@
 // @flow
+/* eslint-disable prefer-spread */
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 import warning from 'warning';
 import * as supports from './supports';
@@ -53,17 +54,21 @@ const state = {};
 
 function forEachListener(
   props: Props,
-  iteratee: (eventName: string, listener: Function, options?: EventOptions) => any
+  iteratee: (eventName: string, listener: Function, options?: EventOptions) => any,
 ): void {
-  for (const name in props) {
-    if (name.substring(0, 2) !== 'on') continue;
+  Object.keys(props).forEach((name) => {
+    if (name.substring(0, 2) !== 'on') {
+      return;
+    }
 
     const prop = props[name];
     const type = typeof prop;
     const isObject = type === 'object';
     const isFunction = type === 'function';
 
-    if (!isObject && !isFunction) continue;
+    if (!isObject && !isFunction) {
+      return;
+    }
 
     const capture = name.substr(-7).toLowerCase() === 'capture';
     let eventName = name.substring(2).toLowerCase();
@@ -72,13 +77,16 @@ function forEachListener(
     if (isObject) {
       iteratee(eventName, prop.handler, prop.options);
     } else {
-      iteratee(eventName, prop, mergeDefaultEventOptions({capture}));
+      iteratee(eventName, prop, mergeDefaultEventOptions({ capture }));
     }
-  }
+  });
 }
 
-export function withOptions(handler: Function, options: EventOptions): {handler: Function, options: EventOptions} {
-  warning(options, '[react-event-listener] Should be specified options in withOptions.');
+export function withOptions(handler: Function, options: EventOptions): {
+  handler: Function,
+  options: EventOptions
+} {
+  warning(options, 'react-event-listener: Should be specified options in withOptions.');
 
   return {
     handler,
@@ -108,7 +116,7 @@ class EventListener extends Component {
   shouldComponentUpdate(nextProps: Props): boolean {
     return shallowCompare({
       props: this.props,
-      state: state,
+      state,
     }, nextProps, state);
   }
 
