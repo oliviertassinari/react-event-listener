@@ -106,7 +106,7 @@ class EventListener extends Component {
     target: PropTypes.oneOfType([
       PropTypes.object,
       PropTypes.string,
-    ]),
+    ]).isRequired,
   };
 
   componentDidMount(): void {

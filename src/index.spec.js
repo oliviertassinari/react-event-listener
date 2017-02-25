@@ -18,7 +18,7 @@ describe('EventListener', () => {
   describe('props: children', () => {
     it('should work without', () => {
       const wrapper = shallow(
-        <EventListener />,
+        <EventListener target="window" />,
       );
 
       assert.strictEqual(wrapper.children().length, 0,
@@ -27,7 +27,7 @@ describe('EventListener', () => {
 
     it('should render it', () => {
       const wrapper = shallow(
-        <EventListener>
+        <EventListener target="window">
           <div>{'Foo'}</div>
         </EventListener>,
       );
