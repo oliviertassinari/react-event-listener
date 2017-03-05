@@ -49,7 +49,7 @@
     "eslint-plugin-mocha": "^4.8.0",
     "eslint-plugin-react": "^6.9.0",
     "expect": "^1.20.2",
-    "flow-bin": "^0.40.0",
+    "flow-bin": "^0.41.0",
     "jsdom": "^9.9.1",
     "mocha": "^3.2.0",
     "pkgfiles": "^2.3.2",
