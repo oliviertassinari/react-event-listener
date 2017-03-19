@@ -56,12 +56,18 @@ function forEachListener(
   props: Props,
   iteratee: (eventName: string, listener: Function, options?: EventOptions) => any,
 ): void {
-  Object.keys(props).forEach((name) => {
+  const {
+    children, // eslint-disable-line no-unused-vars
+    target, // eslint-disable-line no-unused-vars
+    ...eventProps
+  } = props;
+
+  Object.keys(eventProps).forEach((name) => {
     if (name.substring(0, 2) !== 'on') {
       return;
     }
 
-    const prop = props[name];
+    const prop = eventProps[name];
     const type = typeof prop;
     const isObject = type === 'object';
     const isFunction = type === 'function';
