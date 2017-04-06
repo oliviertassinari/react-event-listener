@@ -149,23 +149,36 @@ describe('EventListener', () => {
       assert.strictEqual(handleClick.callCount, 1);
     });
 
-    it('removes listeners from old node', () => {
-      const handleClick = spy();
+    describe('lifecycle', () => {
+      let extraNode;
 
-      render(<EventListener target={document} onClick={handleClick} />, node);
-      render(<EventListener onClick={handleClick} />, node);
+      beforeEach(() => {
+        extraNode = document.createElement('button');
+        document.body.appendChild(extraNode);
+      });
 
-      document.body.click();
-      assert.strictEqual(handleClick.callCount, 0);
-    });
+      afterEach(() => {
+        extraNode.parentNode.removeChild(extraNode);
+      });
 
-    it('adds listeners to new node', () => {
-      const handleClick = spy();
+      it('removes listeners from old node', () => {
+        const handleClick = spy();
 
-      render(<EventListener onClick={handleClick} />, node);
-      render(<EventListener target={document} onClick={handleClick} />, node);
-      document.body.click();
-      assert.strictEqual(handleClick.callCount, 1);
+        render(<EventListener target={document} onClick={handleClick} />, node);
+        render(<EventListener target={extraNode} onClick={handleClick} />, node);
+
+        document.body.click();
+        assert.strictEqual(handleClick.callCount, 0);
+      });
+
+      it('adds listeners to new node', () => {
+        const handleClick = spy();
+
+        render(<EventListener target={extraNode} onClick={handleClick} />, node);
+        render(<EventListener target={document} onClick={handleClick} />, node);
+        document.body.click();
+        assert.strictEqual(handleClick.callCount, 1);
+      });
     });
 
     it("doesn't update if props are shallow equal", () => {

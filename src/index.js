@@ -2,7 +2,7 @@
 /* eslint-disable prefer-spread */
 
 import React, { Component, PropTypes } from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
+import shallowEqual from 'fbjs/lib/shallowEqual';
 import warning from 'warning';
 import * as supports from './supports';
 
@@ -49,8 +49,6 @@ type Props = {
   target?: EventTarget,
   [event: string]: Function
 };
-
-const state = {};
 
 function forEachListener(
   props: Props,
@@ -120,10 +118,7 @@ class EventListener extends Component {
   }
 
   shouldComponentUpdate(nextProps: Props): boolean {
-    return shallowCompare({
-      props: this.props,
-      state,
-    }, nextProps, state);
+    return !shallowEqual(this.props, nextProps);
   }
 
   componentWillUpdate(): void {
