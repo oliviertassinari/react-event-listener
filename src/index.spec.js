@@ -2,6 +2,7 @@
 /* eslint-disable flowtype/require-valid-file-annotation */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { shallow } from 'enzyme';
 import { assert } from 'chai';
 import { spy } from 'sinon';
@@ -93,7 +94,7 @@ describe('EventListener', () => {
       it(name, () => {
         class TextComponent extends Component {
           static propTypes = {
-            onClick: React.PropTypes.func,
+            onClick: PropTypes.func,
           };
 
           handleClick = () => {

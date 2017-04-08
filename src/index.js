@@ -1,7 +1,8 @@
 // @flow
 /* eslint-disable prefer-spread */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import warning from 'warning';
 import * as supports from './supports';
