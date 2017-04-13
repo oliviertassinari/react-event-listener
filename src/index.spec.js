@@ -12,7 +12,7 @@ import {
 } from 'react-dom';
 import {
   Simulate,
-} from 'react-addons-test-utils';
+} from 'react-dom/test-utils';
 import EventListener, { withOptions } from './index';
 
 describe('EventListener', () => {

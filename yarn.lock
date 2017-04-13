@@ -217,9 +217,9 @@ babel-core@^6.2.1, babel-core@^6.24.0, babel-core@^6.24.1:
     slash "^1.0.0"
     source-map "^0.5.0"
 
-babel-eslint@^7.2.1:
-  version "7.2.1"
-  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-7.2.1.tgz#079422eb73ba811e3ca0865ce87af29327f8c52f"
+babel-eslint@^7.2.2:
+  version "7.2.2"
+  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-7.2.2.tgz#0da2cbe6554fd0fb069f19674f2db2f9c59270ff"
   dependencies:
     babel-code-frame "^6.22.0"
     babel-traverse "^6.23.1"
@@ -699,9 +699,9 @@ babel-plugin-transform-react-jsx@^6.24.1:
     babel-plugin-syntax-jsx "^6.8.0"
     babel-runtime "^6.22.0"
 
-babel-plugin-transform-react-remove-prop-types@^0.3.0:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/babel-plugin-transform-react-remove-prop-types/-/babel-plugin-transform-react-remove-prop-types-0.3.3.tgz#d09f48b9a9503a69c1ced39b3825c2f45d29333c"
+babel-plugin-transform-react-remove-prop-types@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-react-remove-prop-types/-/babel-plugin-transform-react-remove-prop-types-0.4.0.tgz#f63840e7953563d661be8c647b094d74d7363f17"
 
 babel-plugin-transform-regenerator@^6.24.1:
   version "6.24.1"
@@ -1251,9 +1251,9 @@ entities@^1.1.1, entities@~1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.1.tgz#6e5c2d0a5621b5dadaecef80b90edfb5cd7772f0"
 
-enzyme@^2.8.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/enzyme/-/enzyme-2.8.0.tgz#86cc1fc96e5cbd7695766dd6e89deb13a0aead51"
+enzyme@^2.8.1:
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/enzyme/-/enzyme-2.8.1.tgz#53891a75c8fe4d56582c113b3da45713b8215738"
   dependencies:
     cheerio "^0.22.0"
     function.prototype.name "^1.0.0"
@@ -1263,6 +1263,7 @@ enzyme@^2.8.0:
     object.assign "^4.0.4"
     object.entries "^1.0.3"
     object.values "^1.0.3"
+    prop-types "^15.5.4"
     uuid "^2.0.3"
 
 es-abstract@^1.6.1, es-abstract@^1.7.0:
@@ -1625,9 +1626,9 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
-flow-bin@^0.43.0:
-  version "0.43.1"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.43.1.tgz#0733958b448fb8ad4b1576add7e87c31794c81bc"
+flow-bin@^0.44.0:
+  version "0.44.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.44.0.tgz#b291f147e5dae1cc8a116f834f24d9402ed96a52"
 
 for-in@^1.0.1:
   version "1.0.2"
@@ -2723,9 +2724,9 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.2, prop-types@^15.5.4, prop-types@~15.5.0:
-  version "15.5.4"
-  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.4.tgz#2ed3692716a5060f8cc020946d8238e7419d92c0"
+prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@~15.5.7:
+  version "15.5.8"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.8.tgz#6b7b2e141083be38c8595aa51fc55775c7199394"
   dependencies:
     fbjs "^0.8.9"
 
@@ -2757,30 +2758,30 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-addons-test-utils@^15.5.0:
-  version "15.5.0"
-  resolved "https://registry.yarnpkg.com/react-addons-test-utils/-/react-addons-test-utils-15.5.0.tgz#d09f7475ba7728bcdb288303a687b64c75b31a5c"
-  dependencies:
-    fbjs "^0.8.4"
-    object-assign "^4.1.0"
-
-react-dom@^15.5.3:
-  version "15.5.3"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.5.3.tgz#2ee127ce942df55da53111ae303316e68072b5c5"
+react-dom@^15.5.4:
+  version "15.5.4"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.5.4.tgz#ba0c28786fd52ed7e4f2135fe0288d462aef93da"
   dependencies:
     fbjs "^0.8.9"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
-    prop-types "~15.5.0"
+    prop-types "~15.5.7"
 
-react@^15.5.3:
-  version "15.5.3"
-  resolved "https://registry.yarnpkg.com/react/-/react-15.5.3.tgz#84055382c025dec4e3b902bb61a8697cc79c1258"
+react-test-renderer@^15.5.4:
+  version "15.5.4"
+  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-15.5.4.tgz#d4ebb23f613d685ea8f5390109c2d20fbf7c83bc"
+  dependencies:
+    fbjs "^0.8.9"
+    object-assign "^4.1.0"
+
+react@^15.5.4:
+  version "15.5.4"
+  resolved "https://registry.yarnpkg.com/react/-/react-15.5.4.tgz#fa83eb01506ab237cdc1c8c3b1cea8de012bf047"
   dependencies:
     fbjs "^0.8.9"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
-    prop-types "^15.5.2"
+    prop-types "^15.5.7"
 
 "readable-stream@^2.0.0 || ^1.1.13", readable-stream@^2.0.2, readable-stream@^2.1.4, readable-stream@^2.2.2:
   version "2.2.9"
