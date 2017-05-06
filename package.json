@@ -47,7 +47,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-mocha": "^4.9.0",
-    "eslint-plugin-react": "^6.10.3",
+    "eslint-plugin-react": "^7.0.0",
     "expect": "^1.20.2",
     "flow-bin": "^0.45.0",
     "jsdom": "^10.1.0",
