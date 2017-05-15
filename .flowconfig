@@ -1,5 +1,7 @@
 [ignore]
 
+.*/node_modules/eslint-plugin-jsx-a11y/src/.*
+
 [libs]
 
 ./flow/interfaces
