@@ -1,5 +1,7 @@
 # react-event-listener
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/oliviertassinari/react-event-listener.svg)](https://greenkeeper.io/)
+
 > A React component for binding events on the global scope.
 
 [![npm version](https://img.shields.io/npm/v/react-event-listener.svg?style=flat-square)](https://www.npmjs.com/package/react-event-listener)
