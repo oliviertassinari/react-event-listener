@@ -1,7 +1,8 @@
 // @flow
 /* eslint-disable prefer-spread */
 
-import React, { Component } from 'react';
+import { Component } from 'react';
+import type { Node } from 'react';
 import PropTypes from 'prop-types';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import warning from 'warning';
@@ -46,7 +47,7 @@ function off(target: Object, eventName: string, callback: Function, options: Eve
 }
 
 type Props = {
-  children?: React.Element<any>,
+  children?: Node,
   target?: EventTarget,
   [event: string]: Function
 };
@@ -99,7 +100,7 @@ export function withOptions(handler: Function, options: EventOptions): {
   };
 }
 
-class EventListener extends Component {
+class EventListener extends Component<Props> {
   static propTypes = {
     /**
      * You can provide a single child too.
