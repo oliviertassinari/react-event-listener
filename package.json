@@ -10,7 +10,7 @@
     "test:watch": "mocha -w",
     "test": "npm run lint && npm run test:unit && npm run flow",
     "flow": "flow",
-    "prepublish": "npm run build && pkgfiles"
+    "version": "npm run build && pkgfiles"
   },
   "repository": {
     "type": "git",
@@ -66,6 +66,6 @@
     "warning": "^3.0.0"
   },
   "peerDependencies": {
-    "react": "^0.14.0 || ^15.0.0"
+    "react": "^15.3.0 || ^16.0.0-beta.5"
   }
 }
