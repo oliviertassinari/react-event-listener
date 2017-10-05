@@ -9,8 +9,8 @@ import warning from 'warning';
 import * as supports from './supports';
 
 type EventOptions = {
-  capture: boolean;
-  passive: boolean;
+  capture: boolean,
+  passive: boolean,
 };
 
 const defaultEventOptions: EventOptions = {
@@ -22,7 +22,11 @@ function mergeDefaultEventOptions(options: Object) {
   return Object.assign({}, defaultEventOptions, options);
 }
 
-function getEventListenerArgs(eventName: string, callback: Function, options: EventOptions): Array<any> {
+function getEventListenerArgs(
+  eventName: string,
+  callback: Function,
+  options: EventOptions,
+): Array<any> {
   const args = [eventName, callback];
   args.push(supports.passiveOption ? options : options.capture);
   return args;
@@ -31,7 +35,8 @@ function getEventListenerArgs(eventName: string, callback: Function, options: Ev
 function on(target: Object, eventName: string, callback: Function, options: EventOptions): void {
   if (supports.addEventListener) {
     target.addEventListener.apply(target, getEventListenerArgs(eventName, callback, options));
-  } else if (supports.attachEvent) { // IE8+ Support
+  } else if (supports.attachEvent) {
+    // IE8+ Support
     target.attachEvent(`on${eventName}`, () => {
       callback.call(target);
     });
@@ -41,7 +46,8 @@ function on(target: Object, eventName: string, callback: Function, options: Even
 function off(target: Object, eventName: string, callback: Function, options: EventOptions): void {
   if (supports.removeEventListener) {
     target.removeEventListener.apply(target, getEventListenerArgs(eventName, callback, options));
-  } else if (supports.detachEvent) { // IE8+ Support
+  } else if (supports.detachEvent) {
+    // IE8+ Support
     target.detachEvent(`on${eventName}`, callback);
   }
 }
@@ -49,7 +55,7 @@ function off(target: Object, eventName: string, callback: Function, options: Eve
 type Props = {
   children?: Node,
   target?: EventTarget,
-  [event: string]: Function
+  [event: string]: Function,
 };
 
 function forEachListener(
@@ -62,7 +68,7 @@ function forEachListener(
     ...eventProps
   } = props;
 
-  Object.keys(eventProps).forEach((name) => {
+  Object.keys(eventProps).forEach(name => {
     if (name.substring(0, 2) !== 'on') {
       return;
     }
@@ -88,9 +94,12 @@ function forEachListener(
   });
 }
 
-export function withOptions(handler: Function, options: EventOptions): {
+export function withOptions(
   handler: Function,
-  options: EventOptions
+  options: EventOptions,
+): {
+  handler: Function,
+  options: EventOptions,
 } {
   warning(options, 'react-event-listener: Should be specified options in withOptions.');
 
@@ -109,10 +118,7 @@ class EventListener extends Component<Props> {
     /**
      * The DOM target to listen to.
      */
-    target: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.string,
-    ]).isRequired,
+    target: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
   };
 
   componentDidMount(): void {
@@ -144,9 +150,7 @@ class EventListener extends Component<Props> {
   }
 
   applyListeners(onOrOff: Function): void {
-    const {
-      target,
-    } = this.props;
+    const { target } = this.props;
 
     if (target) {
       let element = target;

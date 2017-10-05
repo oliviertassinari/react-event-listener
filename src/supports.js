@@ -29,11 +29,15 @@ export const passiveOption = (() => {
     let supportsPassiveOption = false;
 
     try {
-      window.addEventListener('test', null, defineProperty({}, 'passive', {
-        get() {
-          supportsPassiveOption = true;
-        },
-      }));
+      window.addEventListener(
+        'test',
+        null,
+        defineProperty({}, 'passive', {
+          get() {
+            supportsPassiveOption = true;
+          },
+        }),
+      );
     } catch (e) {} // eslint-disable-line no-empty
 
     cache = supportsPassiveOption;

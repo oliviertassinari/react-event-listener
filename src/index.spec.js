@@ -6,24 +6,16 @@ import PropTypes from 'prop-types';
 import { shallow } from 'enzyme';
 import { assert } from 'chai';
 import { spy } from 'sinon';
-import {
-  render,
-  unmountComponentAtNode,
-} from 'react-dom';
-import {
-  Simulate,
-} from 'react-dom/test-utils';
+import { render, unmountComponentAtNode } from 'react-dom';
+import { Simulate } from 'react-dom/test-utils';
 import EventListener, { withOptions } from './index';
 
 describe('EventListener', () => {
   describe('props: children', () => {
     it('should work without', () => {
-      const wrapper = shallow(
-        <EventListener target="window" />,
-      );
+      const wrapper = shallow(<EventListener target="window" />);
 
-      assert.strictEqual(wrapper.children().length, 0,
-        'Should work without children');
+      assert.strictEqual(wrapper.children().length, 0, 'Should work without children');
     });
 
     it('should render it', () => {
@@ -33,8 +25,7 @@ describe('EventListener', () => {
         </EventListener>,
       );
 
-      assert.strictEqual(wrapper.children().length, 1,
-        'Should render his children.');
+      assert.strictEqual(wrapper.children().length, 1, 'Should render his children.');
     });
   });
 
@@ -102,9 +93,7 @@ describe('EventListener', () => {
           };
 
           render() {
-            return (
-              <EventListener target={document} onClick={this.handleClick} />
-            );
+            return <EventListener target={document} onClick={this.handleClick} />;
           }
         }
 
@@ -203,12 +192,11 @@ describe('EventListener', () => {
 
       render(
         <div>
-          <EventListener
-            target={document}
-            onClickCapture={() => calls.push('outer')}
-          />
+          <EventListener target={document} onClickCapture={() => calls.push('outer')} />
           <button
-            ref={(c) => { button = c; }}
+            ref={c => {
+              button = c;
+            }}
             onClick={() => calls.push('inner')}
           />
         </div>,
@@ -217,10 +205,7 @@ describe('EventListener', () => {
 
       assert.strictEqual(calls.length, 0);
       button.click();
-      assert.deepEqual(calls, [
-        'outer',
-        'inner',
-      ], 'Should be called in the right order.');
+      assert.deepEqual(calls, ['outer', 'inner'], 'Should be called in the right order.');
     });
   });
 
@@ -250,7 +235,9 @@ describe('EventListener', () => {
             onClick={withOptions(() => calls.push('outer'), { capture: true })}
           />
           <button
-            ref={(c) => { button = c; }}
+            ref={c => {
+              button = c;
+            }}
             onClick={() => calls.push('inner')}
           />
         </div>,
@@ -259,10 +246,7 @@ describe('EventListener', () => {
 
       assert.strictEqual(calls.length, 0);
       button.click();
-      assert.deepEqual(calls, [
-        'outer',
-        'inner',
-      ], 'Should be called in the right order.');
+      assert.deepEqual(calls, ['outer', 'inner'], 'Should be called in the right order.');
     });
   });
 });
