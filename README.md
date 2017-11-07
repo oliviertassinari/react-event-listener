@@ -12,7 +12,7 @@
 ## Installation
 
 ```sh
-npm install --save react-event-listener
+npm install react-event-listener
 ```
 
 ## The problem solved
