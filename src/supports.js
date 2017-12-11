@@ -1,9 +1,11 @@
 // @flow
 
-import defineProperty from './define-property';
+function defineProperty(o, p, attr) {
+  return Object.defineProperty(o, p, attr);
+}
 
 // Inspired by https://github.com/facebook/fbjs/blob/master/packages/fbjs/src/core/ExecutionEnvironment.js
-export const canUseDOM = !!(
+const canUseDOM = !!(
   typeof window !== 'undefined' &&
   window.document &&
   window.document.createElement
