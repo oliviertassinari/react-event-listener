@@ -91,13 +91,6 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
 
-    'prettier/prettier': [
-      'error',
-      {
-        singleQuote: true,
-        printWidth: 100,
-        trailingComma: 'all',
-      },
-    ],
+    'prettier/prettier': 'error',
   },
 };

@@ -1,67 +1,35 @@
-// @flow
-/* eslint-disable prefer-spread */
-
-import { Component } from 'react';
-import type { Node } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import warning from 'warning';
-import * as supports from './supports';
+import { passiveOption } from './supports';
 
-type EventOptions = {
-  capture: boolean,
-  passive: boolean,
-};
-
-const defaultEventOptions: EventOptions = {
+const defaultEventOptions = {
   capture: false,
   passive: false,
 };
 
-function mergeDefaultEventOptions(options: Object) {
+function mergeDefaultEventOptions(options) {
   return Object.assign({}, defaultEventOptions, options);
 }
 
-function getEventListenerArgs(
-  eventName: string,
-  callback: Function,
-  options: EventOptions,
-): Array<any> {
+function getEventListenerArgs(eventName, callback, options) {
   const args = [eventName, callback];
-  args.push(supports.passiveOption ? options : options.capture);
+  args.push(passiveOption ? options : options.capture);
   return args;
 }
 
-function on(target: Object, eventName: string, callback: Function, options: EventOptions): void {
-  if (supports.addEventListener) {
-    target.addEventListener.apply(target, getEventListenerArgs(eventName, callback, options));
-  } else if (supports.attachEvent) {
-    // IE8+ Support
-    target.attachEvent(`on${eventName}`, () => {
-      callback.call(target);
-    });
-  }
+function on(target, eventName, callback, options) {
+  // eslint-disable-next-line prefer-spread
+  target.addEventListener.apply(target, getEventListenerArgs(eventName, callback, options));
 }
 
-function off(target: Object, eventName: string, callback: Function, options: EventOptions): void {
-  if (supports.removeEventListener) {
-    target.removeEventListener.apply(target, getEventListenerArgs(eventName, callback, options));
-  } else if (supports.detachEvent) {
-    // IE8+ Support
-    target.detachEvent(`on${eventName}`, callback);
-  }
+function off(target, eventName, callback, options) {
+  // eslint-disable-next-line prefer-spread
+  target.removeEventListener.apply(target, getEventListenerArgs(eventName, callback, options));
 }
 
-type Props = {
-  children?: Node,
-  target?: EventTarget,
-  [event: string]: Function,
-};
-
-function forEachListener(
-  props: Props,
-  iteratee: (eventName: string, listener: Function, options?: EventOptions) => any,
-): void {
+function forEachListener(props, iteratee) {
   const {
     children, // eslint-disable-line no-unused-vars
     target, // eslint-disable-line no-unused-vars
@@ -94,14 +62,8 @@ function forEachListener(
   });
 }
 
-export function withOptions(
-  handler: Function,
-  options: EventOptions,
-): {
-  handler: Function,
-  options: EventOptions,
-} {
-  warning(options, 'react-event-listener: Should be specified options in withOptions.');
+export function withOptions(handler, options) {
+  warning(options, 'react-event-listener: should be specified options in withOptions.');
 
   return {
     handler,
@@ -109,47 +71,36 @@ export function withOptions(
   };
 }
 
-class EventListener extends Component<Props> {
-  static propTypes = {
-    /**
-     * You can provide a single child too.
-     */
-    children: PropTypes.element,
-    /**
-     * The DOM target to listen to.
-     */
-    target: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
-  };
-
-  componentDidMount(): void {
+class EventListener extends React.Component {
+  componentDidMount() {
     this.addListeners();
   }
 
-  shouldComponentUpdate(nextProps: Props): boolean {
+  shouldComponentUpdate(nextProps) {
     return !shallowEqual(this.props, nextProps);
   }
 
-  componentWillUpdate(): void {
+  componentWillUpdate() {
     this.removeListeners();
   }
 
-  componentDidUpdate(): void {
+  componentDidUpdate() {
     this.addListeners();
   }
 
-  componentWillUnmount(): void {
+  componentWillUnmount() {
     this.removeListeners();
   }
 
-  addListeners(): void {
+  addListeners() {
     this.applyListeners(on);
   }
 
-  removeListeners(): void {
+  removeListeners() {
     this.applyListeners(off);
   }
 
-  applyListeners(onOrOff: Function): void {
+  applyListeners(onOrOff) {
     const { target } = this.props;
 
     if (target) {
@@ -167,5 +118,16 @@ class EventListener extends Component<Props> {
     return this.props.children || null;
   }
 }
+
+EventListener.propTypes = {
+  /**
+   * You can provide a single child too.
+   */
+  children: PropTypes.node,
+  /**
+   * The DOM target to listen to.
+   */
+  target: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
+};
 
 export default EventListener;

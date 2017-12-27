@@ -1,22 +1,6 @@
-// @flow
-
-function defineProperty(o, p, attr) {
-  return Object.defineProperty(o, p, attr);
+function defineProperty(object, property, attr) {
+  return Object.defineProperty(object, property, attr);
 }
-
-// Inspired by https://github.com/facebook/fbjs/blob/master/packages/fbjs/src/core/ExecutionEnvironment.js
-const canUseDOM = !!(
-  typeof window !== 'undefined' &&
-  window.document &&
-  window.document.createElement
-);
-
-export const addEventListener = canUseDOM && 'addEventListener' in window;
-export const removeEventListener = canUseDOM && 'removeEventListener' in window;
-
-// IE8+ Support
-export const attachEvent = canUseDOM && 'attachEvent' in window;
-export const detachEvent = canUseDOM && 'detachEvent' in window;
 
 // Passive options
 // Inspired by https://github.com/Modernizr/Modernizr/blob/master/feature-detects/dom/passiveeventlisteners.js
@@ -40,10 +24,14 @@ export const passiveOption = (() => {
           },
         }),
       );
-    } catch (e) {} // eslint-disable-line no-empty
+    } catch (err) {
+      //
+    }
 
     cache = supportsPassiveOption;
 
     return supportsPassiveOption;
   })();
 })();
+
+export default {};

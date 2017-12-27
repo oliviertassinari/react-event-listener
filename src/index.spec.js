@@ -1,7 +1,6 @@
 /* eslint-env mocha */
-/* eslint-disable flowtype/require-valid-file-annotation */
 
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { shallow } from 'enzyme';
 import { assert } from 'chai';
@@ -11,7 +10,7 @@ import { Simulate } from 'react-dom/test-utils';
 import EventListener, { withOptions } from './index';
 
 describe('EventListener', () => {
-  describe('props: children', () => {
+  describe('prop: children', () => {
     it('should work without', () => {
       const wrapper = shallow(<EventListener target="window" />);
 
@@ -41,7 +40,7 @@ describe('EventListener', () => {
     node.parentNode.removeChild(node);
   });
 
-  describe('props: target', () => {
+  describe('prop: target', () => {
     it('should work with a string', () => {
       const handleClick = spy();
 
@@ -83,7 +82,7 @@ describe('EventListener', () => {
   ].forEach(({ contextName, name, invokeFn, expectFn }) => {
     describe(contextName, () => {
       it(name, () => {
-        class TextComponent extends Component {
+        class TextComponent extends React.Component {
           static propTypes = {
             onClick: PropTypes.func,
           };
@@ -178,7 +177,7 @@ describe('EventListener', () => {
       let updated = false;
       inst.componentWillUpdate = (...args) => {
         updated = true;
-        componentWillUpdate(...args);
+        componentWillUpdate.bind(inst)(...args);
       };
       render(<EventListener target={document} onClick={handleClick} />, node);
       assert.strictEqual(updated, false);
