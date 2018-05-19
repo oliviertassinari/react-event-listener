@@ -72,6 +72,17 @@ export function withOptions(handler, options) {
 }
 
 class EventListener extends React.Component {
+  static propTypes = {
+    /**
+     * You can provide a single child too.
+     */
+    children: PropTypes.node,
+    /**
+     * The DOM target to listen to.
+     */
+    target: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
+  };
+
   componentDidMount() {
     this.addListeners();
   }
@@ -118,16 +129,5 @@ class EventListener extends React.Component {
     return this.props.children || null;
   }
 }
-
-EventListener.propTypes = {
-  /**
-   * You can provide a single child too.
-   */
-  children: PropTypes.node,
-  /**
-   * The DOM target to listen to.
-   */
-  target: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
-};
 
 export default EventListener;
