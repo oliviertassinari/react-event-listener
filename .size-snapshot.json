@@ -1,0 +1,11 @@
+{
+  "dist/react-event-listener.esm.js": {
+    "bundled": 5499,
+    "minified": 3264,
+    "gzipped": 1149,
+    "treeshaked": {
+      "rollup": 2186,
+      "webpack": 3344
+    }
+  }
+}

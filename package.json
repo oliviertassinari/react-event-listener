@@ -2,12 +2,13 @@
   "name": "react-event-listener",
   "version": "0.5.3",
   "description": "A React component that allow to bind events on the global scope",
-  "main": "lib/index.js",
+  "main": "dist/react-event-listener.cjs.js",
+  "module": "dist/react-event-listener.esm.js",
   "scripts": {
-    "build": "rimraf lib && babel src --out-dir lib --ignore spec.js",
+    "build": "rimraf dist && rollup -c",
     "lint": "eslint . && echo \"eslint: no lint errors\"",
-    "test:unit": "mocha",
-    "test:watch": "mocha -w",
+    "test:unit": "NODE_ENV=test mocha",
+    "test:watch": "NODE_ENV=test mocha -w",
     "test": "npm run lint && npm run test:unit",
     "prettier": "find . -name \"*.js\" | grep -v -f .eslintignore | xargs prettier --write",
     "version": "npm run build && pkgfiles"
@@ -29,10 +30,10 @@
     "url": "https://github.com/oliviertassinari/react-event-listener/issues"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-plugin-transform-dev-warning": "^0.1.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.9",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
@@ -57,6 +58,9 @@
     "react-dom": "^16.0.0",
     "react-test-renderer": "^16.0.0",
     "rimraf": "^2.6.2",
+    "rollup": "^0.59.1",
+    "rollup-plugin-babel": "^3.0.4",
+    "rollup-plugin-size-snapshot": "^0.4.1",
     "sinon": "^4.0.1"
   },
   "dependencies": {
