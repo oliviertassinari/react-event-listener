@@ -20,7 +20,7 @@ describe('EventListener', () => {
     it('should render it', () => {
       const wrapper = shallow(
         <EventListener target="window">
-          <div>{'Foo'}</div>
+          <div>Foo</div>
         </EventListener>,
       );
 
