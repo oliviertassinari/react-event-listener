@@ -14,9 +14,10 @@ const globals = {
   'prop-types': 'PropTypes',
 };
 
-const getBabelOptions = () => ({
+const getBabelOptions = ({ useESModules }) => ({
   exclude: '**/node_modules/**',
   runtimeHelpers: true,
+  plugins: [['@babel/transform-runtime', { useBuiltIns: true, useESModules }]],
 });
 
 export default [
@@ -32,7 +33,7 @@ export default [
     external: Object.keys(globals),
     plugins: [
       nodeResolve(),
-      babel(getBabelOptions()),
+      babel(getBabelOptions({ useESModules: true })),
       commonjs({ include: '**/node_modules/**' }),
       replace({ 'process.env.NODE_ENV': JSON.stringify('development') }),
       sizeSnapshot(),
@@ -43,13 +44,13 @@ export default [
     input,
     output: { file: pkg.main, format: 'cjs', exports: 'named' },
     external,
-    plugins: [babel(getBabelOptions())],
+    plugins: [babel(getBabelOptions({ useESModules: false }))],
   },
 
   {
     input,
     output: { file: pkg.module, format: 'es', exports: 'named' },
     external,
-    plugins: [babel(getBabelOptions()), sizeSnapshot()],
+    plugins: [babel(getBabelOptions({ useESModules: true })), sizeSnapshot()],
   },
 ];
