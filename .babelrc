@@ -1,15 +1,12 @@
 {
   "presets": [["env", { "modules": false }], "stage-2", "react"],
   "plugins": [
-    "transform-runtime",
-    ["transform-react-remove-prop-types", {"mode": "wrap"}],
+    ["transform-react-remove-prop-types", { "mode": "wrap" }],
     "transform-dev-warning"
   ],
   "env": {
     "test": {
-      "plugins": [
-        "transform-es2015-modules-commonjs"
-      ]
+      "plugins": ["transform-es2015-modules-commonjs"]
     }
   }
 }

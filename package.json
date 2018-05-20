@@ -7,11 +7,12 @@
   "scripts": {
     "build": "rimraf dist && rollup -c",
     "lint": "eslint . && echo \"eslint: no lint errors\"",
+    "size": "yarn build && size-limit",
     "test:unit": "NODE_ENV=test mocha",
     "test:watch": "NODE_ENV=test mocha -w",
-    "test": "npm run lint && npm run test:unit",
+    "test": "yarn lint && yarn test:unit && yarn size",
     "prettier": "find . -name \"*.js\" | grep -v -f .eslintignore | xargs prettier --write",
-    "version": "npm run build && pkgfiles"
+    "version": "yarn build && pkgfiles"
   },
   "repository": {
     "type": "git",
@@ -35,7 +36,6 @@
     "babel-plugin-transform-dev-warning": "^0.1.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.9",
-    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
@@ -43,15 +43,15 @@
     "enzyme": "^3.1.0",
     "enzyme-adapter-react-16": "^1.0.1",
     "eslint": "^4.8.0",
-    "eslint-config-airbnb": "^15.1.0",
-    "eslint-plugin-babel": "^4.1.2",
+    "eslint-config-airbnb": "^16.0.0",
+    "eslint-plugin-babel": "^5.0.0",
     "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-mocha": "^4.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.0",
+    "eslint-plugin-mocha": "^5.0.0",
     "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.4.0",
     "jsdom": "^11.3.0",
-    "mocha": "^4.0.0",
+    "mocha": "^5.0.0",
     "pkgfiles": "^2.3.2",
     "prettier": "^1.7.4",
     "react": "^16.0.0",
@@ -61,10 +61,10 @@
     "rollup": "^0.59.1",
     "rollup-plugin-babel": "^3.0.4",
     "rollup-plugin-size-snapshot": "^0.4.1",
-    "sinon": "^4.0.1"
+    "sinon": "^5.0.0",
+    "size-limit": "^0.18.0"
   },
   "dependencies": {
-    "babel-runtime": "^6.26.0",
     "fbjs": "^0.8.16",
     "prop-types": "^15.6.0",
     "warning": "^3.0.0"
