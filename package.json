@@ -7,9 +7,10 @@
   "scripts": {
     "build": "rimraf dist && rollup -c",
     "lint": "eslint . && echo \"eslint: no lint errors\"",
+    "size": "yarn build && size-limit",
     "test:unit": "NODE_ENV=test mocha",
     "test:watch": "NODE_ENV=test mocha -w",
-    "test": "yarn lint && yarn test:unit",
+    "test": "yarn lint && yarn test:unit && yarn size",
     "prettier": "find . -name \"*.js\" | grep -v -f .eslintignore | xargs prettier --write",
     "version": "yarn build && pkgfiles"
   },
@@ -66,10 +67,11 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-replace": "^2.0.0",
     "rollup-plugin-size-snapshot": "^0.4.1",
-    "sinon": "^5.0.0"
+    "sinon": "^5.0.0",
+    "size-limit": "^0.18.0"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.47",
+    "@babel/runtime": "^7.0.0-beta.42",
     "fbjs": "^0.8.16",
     "prop-types": "^15.6.0",
     "warning": "^3.0.0"
