@@ -1,16 +1,16 @@
 {
   "dist/react-event-listener.umd.js": {
-    "bundled": 12491,
-    "minified": 4857,
-    "gzipped": 1912
+    "bundled": 12794,
+    "minified": 5043,
+    "gzipped": 1955
   },
   "dist/react-event-listener.esm.js": {
-    "bundled": 5363,
-    "minified": 3146,
-    "gzipped": 1100,
+    "bundled": 5332,
+    "minified": 3103,
+    "gzipped": 1107,
     "treeshaked": {
-      "rollup": 2178,
-      "webpack": 3236
+      "rollup": 2153,
+      "webpack": 3171
     }
   }
 }

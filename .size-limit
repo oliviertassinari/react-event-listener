@@ -3,6 +3,6 @@
     name: 'The entry point',
     webpack: true,
     path: 'dist/react-event-listener.cjs.js',
-    limit: '2.10 KB'
+    limit: '2.13 KB'
   }
 ]
