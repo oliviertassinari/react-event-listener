@@ -71,7 +71,7 @@
     "size-limit": "^0.18.0"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.42",
+    "@babel/runtime": "^7.0.0-beta.47",
     "fbjs": "^0.8.16",
     "prop-types": "^15.6.0",
     "warning": "^3.0.0"
