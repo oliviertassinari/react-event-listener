@@ -47,7 +47,7 @@ export default [
   },
   {
     input,
-    output: { file: 'dist/react-event-listener.esm.js', format: 'es', exports: 'named' },
+    output: { file: pkg.module, format: 'es', exports: 'named' },
     external,
     plugins: [babel(getBabelOptions({ useESModules: true })), sizeSnapshot()],
   },

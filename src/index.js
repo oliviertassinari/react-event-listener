@@ -71,7 +71,7 @@ export function withOptions(handler, options) {
   };
 }
 
-class EventListener extends React.Component {
+export class EventListener extends React.Component {
   componentDidMount() {
     this.addListeners();
   }
@@ -129,5 +129,3 @@ EventListener.propTypes = {
    */
   target: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
 };
-
-export default EventListener;

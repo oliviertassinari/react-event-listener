@@ -33,5 +33,3 @@ export const passiveOption = (() => {
     return supportsPassiveOption;
   })();
 })();
-
-export default {};
