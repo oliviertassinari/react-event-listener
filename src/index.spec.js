@@ -7,7 +7,7 @@ import { assert } from 'chai';
 import { spy } from 'sinon';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { Simulate } from 'react-dom/test-utils';
-import EventListener, { withOptions } from './index';
+import { EventListener, withOptions } from './index';
 
 describe('EventListener', () => {
   describe('prop: children', () => {

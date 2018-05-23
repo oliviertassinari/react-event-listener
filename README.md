@@ -23,10 +23,10 @@ It's using the React lifecycle to bind and unbind at the right time.
 ## Usage
 
 ```js
-import React, {Component} from 'react';
-import EventListener, {withOptions} from 'react-event-listener';
+import * as React from 'react';
+import {EventListener, withOptions} from 'react-event-listener';
 
-class MyComponent extends Component {
+class MyComponent extends React.Component {
   handleResize = () => {
     console.log('resize');
   };
