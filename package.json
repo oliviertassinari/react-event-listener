@@ -3,9 +3,8 @@
   "version": "0.5.8",
   "description": "A React component that allow to bind events on the global scope",
   "main": "dist/react-event-listener.cjs.js",
-  "module": "dist/react-event-listener.esm.js",
   "scripts": {
-    "build": "rimraf dist && rollup -c",
+    "build": "rimraf dist && rollup -c && rimraf dist/react-event-listener.esm.js",
     "lint": "eslint . && echo \"eslint: no lint errors\"",
     "size": "yarn build && size-limit",
     "test:unit": "NODE_ENV=test mocha",

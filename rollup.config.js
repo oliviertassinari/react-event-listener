@@ -39,17 +39,15 @@ export default [
       sizeSnapshot(),
     ],
   },
-
   {
     input,
     output: { file: pkg.main, format: 'cjs', exports: 'named' },
     external,
     plugins: [babel(getBabelOptions({ useESModules: false }))],
   },
-
   {
     input,
-    output: { file: pkg.module, format: 'es', exports: 'named' },
+    output: { file: 'dist/react-event-listener.esm.js', format: 'es', exports: 'named' },
     external,
     plugins: [babel(getBabelOptions({ useESModules: true })), sizeSnapshot()],
   },
