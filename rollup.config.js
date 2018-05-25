@@ -5,6 +5,9 @@ import replace from 'rollup-plugin-replace';
 import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
 import pkg from './package.json';
 
+const matchSnapshot = process.env.SNAPSHOT === 'match';
+const threshold = 1000;
+
 const input = './src/index.js';
 
 const external = id => !id.startsWith('.') && !id.startsWith('/');
@@ -36,7 +39,7 @@ export default [
       babel(getBabelOptions({ useESModules: true })),
       commonjs({ include: '**/node_modules/**' }),
       replace({ 'process.env.NODE_ENV': JSON.stringify('development') }),
-      sizeSnapshot(),
+      sizeSnapshot({ matchSnapshot, threshold }),
     ],
   },
   {
@@ -49,6 +52,9 @@ export default [
     input,
     output: { file: 'dist/react-event-listener.esm.js', format: 'es', exports: 'named' },
     external,
-    plugins: [babel(getBabelOptions({ useESModules: true })), sizeSnapshot()],
+    plugins: [
+      babel(getBabelOptions({ useESModules: true })),
+      sizeSnapshot({ matchSnapshot, threshold }),
+    ],
   },
 ];
