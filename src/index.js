@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import shallowEqual from 'fbjs/lib/shallowEqual';
 import warning from 'warning';
 import { passiveOption } from './supports';
 
@@ -71,37 +70,22 @@ export function withOptions(handler, options) {
   };
 }
 
-class EventListener extends React.Component {
+class EventListener extends React.PureComponent {
   componentDidMount() {
-    this.addListeners();
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return !shallowEqual(this.props, nextProps);
-  }
-
-  componentWillUpdate() {
-    this.removeListeners();
-  }
-
-  componentDidUpdate() {
-    this.addListeners();
-  }
-
-  componentWillUnmount() {
-    this.removeListeners();
-  }
-
-  addListeners() {
     this.applyListeners(on);
   }
 
-  removeListeners() {
+  componentDidUpdate(prevProps) {
+    this.applyListeners(off, prevProps);
+    this.applyListeners(on);
+  }
+
+  componentWillUnmount() {
     this.applyListeners(off);
   }
 
-  applyListeners(onOrOff) {
-    const { target } = this.props;
+  applyListeners(onOrOff, props = this.props) {
+    const { target } = props;
 
     if (target) {
       let element = target;
@@ -110,7 +94,7 @@ class EventListener extends React.Component {
         element = window[target];
       }
 
-      forEachListener(this.props, onOrOff.bind(null, element));
+      forEachListener(props, onOrOff.bind(null, element));
     }
   }
 
