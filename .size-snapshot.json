@@ -1,8 +1,8 @@
 {
   "dist/react-event-listener.umd.js": {
-    "bundled": 10731,
-    "minified": 4450,
-    "gzipped": 1765
+    "bundled": 10736,
+    "minified": 4560,
+    "gzipped": 1801
   },
   "dist/react-event-listener.esm.js": {
     "bundled": 4953,
