@@ -193,6 +193,7 @@ describe('EventListener', () => {
         <div>
           <EventListener target={document} onClickCapture={() => calls.push('outer')} />
           <button
+            type="submit"
             ref={c => {
               button = c;
             }}
@@ -234,6 +235,7 @@ describe('EventListener', () => {
             onClick={withOptions(() => calls.push('outer'), { capture: true })}
           />
           <button
+            type="submit"
             ref={c => {
               button = c;
             }}

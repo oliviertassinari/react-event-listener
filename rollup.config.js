@@ -6,7 +6,6 @@ import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
 import pkg from './package.json';
 
 const input = './src/index.js';
-
 const external = id => !id.startsWith('.') && !id.startsWith('/');
 
 const globals = {
@@ -17,7 +16,7 @@ const globals = {
 const getBabelOptions = ({ useESModules }) => ({
   exclude: '**/node_modules/**',
   runtimeHelpers: true,
-  plugins: [['@babel/transform-runtime', { useBuiltIns: true, useESModules }]],
+  plugins: [['@babel/transform-runtime', { useESModules }]],
 });
 
 export default [
