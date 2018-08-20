@@ -68,6 +68,7 @@ module.exports = {
     'react/sort-prop-types': 'error', // airbnb do nothing here.
     'react/default-props-match-prop-types': 'off', // Buggy
     'react/jsx-curly-brace-presence': 'off', // Buggy
+    'react/destructuring-assignment': 'off', // Fuck no
 
     'mocha/handle-done-callback': 'error',
     'mocha/no-exclusive-tests': 'error',
