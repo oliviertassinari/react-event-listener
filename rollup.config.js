@@ -2,7 +2,6 @@ import nodeResolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
-import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
 import pkg from './package.json';
 
 const input = './src/index.js';
@@ -35,7 +34,6 @@ export default [
       babel(getBabelOptions({ useESModules: true })),
       commonjs({ include: '**/node_modules/**' }),
       replace({ 'process.env.NODE_ENV': JSON.stringify('development') }),
-      sizeSnapshot(),
     ],
   },
   {
@@ -48,6 +46,6 @@ export default [
     input,
     output: { file: 'dist/react-event-listener.esm.js', format: 'es', exports: 'named' },
     external,
-    plugins: [babel(getBabelOptions({ useESModules: true })), sizeSnapshot()],
+    plugins: [babel(getBabelOptions({ useESModules: true }))],
   },
 ];
