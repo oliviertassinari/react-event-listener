@@ -72,20 +72,6 @@ In [this](https://github.com/facebook/react/issues/5043) issue from React, `Test
 
 See our [test cases](https://github.com/oliviertassinari/react-event-listener/blob/master/src/index.spec.js) for more information.
 
-## Contributing
-
-Note: you need to have Flow 0.23.0 or greater to be installed.
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
-
-## Collaborators
-
- - Andy Edwards ([jedwards1211](https://github.com/jedwards1211))
-
 ## License
 
 MIT
