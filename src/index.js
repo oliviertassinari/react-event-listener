@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import warning from 'warning';
+import warning from 'tiny-warning';
 import { passiveOption } from './supports';
 
 const defaultEventOptions = {
