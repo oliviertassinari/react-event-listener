@@ -24,7 +24,10 @@
     "listener",
     "binding"
   ],
-  "author": "olivier.tassinari@gmail.com",
+  "author": {
+    "name": "Olivier Tassinari",
+    "url": "https://github.com/oliviertassinari"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/oliviertassinari/react-event-listener/issues"
