@@ -53,6 +53,7 @@ class MyComponent extends Component {
   }
 }
 ```
+[Demo on CodeSandbox](https://codesandbox.io/s/6jrp9xkjmn)
 
 ### Note on server-side rendering
 
